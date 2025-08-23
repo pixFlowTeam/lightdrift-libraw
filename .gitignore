@@ -92,5 +92,11 @@ sample-images/*.CR3
 sample-images/*.ARW
 sample-images/*.DNG
 
+# Output files
+output/*.ppm
+output/*.tiff
+output/*.jpg
+
 # Keep the directory but ignore large files
 !sample-images/.gitkeep
+!output/.gitkeep
