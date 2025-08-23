@@ -9,7 +9,7 @@
     "rebuild": "npm run clean && npm run build",
     "test": "npm run test:basic && npm run test:formats && npm run test:performance",
     "test:basic": "node test/test.js",
-    "test:formats": "node test/all-formats.test.js", 
+    "test:formats": "node test/all-formats.test.js",
     "test:performance": "node test/performance.test.js",
     "test:samples": "node test/test-samples.js",
     "test:compare": "node test/compare-samples.js",
@@ -56,7 +56,7 @@
     "photography",
     "native-addon",
     "nef",
-    "cr2", 
+    "cr2",
     "cr3",
     "arw",
     "dng",
@@ -65,7 +65,7 @@
     "metadata",
     "exif",
     "canon",
-    "nikon", 
+    "nikon",
     "sony",
     "fujifilm",
     "panasonic",
@@ -76,10 +76,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/libraw-node.git"
+    "url": "https://github.com/unique01082/libraw-node.git"
   },
   "bugs": {
-    "url": "https://github.com/yourusername/libraw-node/issues"
+    "url": "https://github.com/unique01082/libraw-node/issues"
   },
-  "homepage": "https://github.com/yourusername/libraw-node#readme"
+  "homepage": "https://github.com/unique01082/libraw-node#readme"
 }

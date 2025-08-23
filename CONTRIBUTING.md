@@ -5,17 +5,20 @@ Thank you for your interest in contributing to LibRaw Node.js! This document pro
 ## Development Setup
 
 1. **Fork and Clone**
+
    ```bash
-   git clone https://github.com/yourusername/libraw-node.git
+   git clone https://github.com/unique01082/libraw-node.git
    cd libraw-node
    ```
 
 2. **Install Dependencies**
+
    ```bash
    npm install
    ```
 
 3. **Build the Project**
+
    ```bash
    npm run build
    ```
@@ -28,18 +31,21 @@ Thank you for your interest in contributing to LibRaw Node.js! This document pro
 ## Development Guidelines
 
 ### Code Style
+
 - Use consistent indentation (2 spaces)
 - Follow existing naming conventions
 - Add comments for complex logic
 - Keep functions focused and small
 
 ### C++ Guidelines
+
 - Use RAII for resource management
 - Handle all LibRaw error codes
 - Provide meaningful error messages
 - Clean up resources in destructors
 
 ### JavaScript Guidelines
+
 - Use modern async/await syntax
 - Provide comprehensive error handling
 - Write clear, self-documenting code
@@ -48,12 +54,14 @@ Thank you for your interest in contributing to LibRaw Node.js! This document pro
 ## Testing
 
 ### Adding Tests
+
 - Add unit tests for new features
 - Test error conditions
 - Include integration tests with sample files
 - Verify memory cleanup
 
 ### Running Tests
+
 ```bash
 npm run test:quick    # Basic functionality
 npm run test:samples  # Sample file processing
@@ -64,22 +72,26 @@ npm test path/to/raw  # Custom file test
 ## Submitting Changes
 
 1. **Create a Branch**
+
    ```bash
    git checkout -b feature/your-feature-name
    ```
 
 2. **Make Changes**
+
    - Write code following the guidelines
    - Add tests for new functionality
    - Update documentation as needed
 
 3. **Test Your Changes**
+
    ```bash
    npm run build
    npm run test:quick
    ```
 
 4. **Commit Your Changes**
+
    ```bash
    git add .
    git commit -m "feat: add your feature description"
@@ -93,6 +105,7 @@ npm test path/to/raw  # Custom file test
 ## Commit Message Format
 
 Use conventional commits format:
+
 - `feat:` new feature
 - `fix:` bug fix
 - `docs:` documentation changes
@@ -103,18 +116,21 @@ Use conventional commits format:
 ## Areas for Contribution
 
 ### High Priority
+
 - Cross-platform build support (macOS, Linux)
 - Asynchronous processing with worker threads
 - Image processing and export capabilities
 - TypeScript definitions
 
 ### Medium Priority
+
 - Additional metadata extraction
 - Performance optimizations
 - Better error handling
 - Documentation improvements
 
 ### Low Priority
+
 - Advanced color management
 - Batch processing features
 - Plugin system

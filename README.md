@@ -21,18 +21,18 @@ A high-performance Node.js Native Addon for processing RAW image files using the
 
 LibRaw supports 100+ RAW formats including:
 
-| Manufacturer | Formats |
-|--------------|---------|
-| **Canon** | `.CR2`, `.CR3`, `.CRW` |
-| **Nikon** | `.NEF`, `.NRW` |
-| **Sony** | `.ARW`, `.SRF`, `.SR2` |
-| **Adobe** | `.DNG` |
-| **Fujifilm** | `.RAF` |
-| **Olympus** | `.ORF` |
-| **Panasonic** | `.RW2` |
-| **Pentax** | `.PEF` |
-| **Leica** | `.DNG`, `.RWL` |
-| **And many more...** | *100+ formats total* |
+| Manufacturer         | Formats                |
+| -------------------- | ---------------------- |
+| **Canon**            | `.CR2`, `.CR3`, `.CRW` |
+| **Nikon**            | `.NEF`, `.NRW`         |
+| **Sony**             | `.ARW`, `.SRF`, `.SR2` |
+| **Adobe**            | `.DNG`                 |
+| **Fujifilm**         | `.RAF`                 |
+| **Olympus**          | `.ORF`                 |
+| **Panasonic**        | `.RW2`                 |
+| **Pentax**           | `.PEF`                 |
+| **Leica**            | `.DNG`, `.RWL`         |
+| **And many more...** | _100+ formats total_   |
 
 ## Installation
 
@@ -51,30 +51,32 @@ npm install libraw-node
 ## Quick Start
 
 ```javascript
-const LibRaw = require('libraw-node');
+const LibRaw = require("libraw-node");
 
 async function processRAW() {
-    const processor = new LibRaw();
-    
-    try {
-        // Load RAW file
-        await processor.loadFile('photo.cr2');
-        
-        // Extract metadata
-        const metadata = await processor.getMetadata();
-        console.log('Camera:', metadata.make, metadata.model);
-        console.log('Settings:', `ISO ${metadata.iso}, f/${metadata.aperture}, ${metadata.focalLength}mm`);
-        
-        // Get image dimensions
-        const size = await processor.getImageSize();
-        console.log('Size:', `${size.width} × ${size.height} pixels`);
-        
-        // Always clean up
-        await processor.close();
-        
-    } catch (error) {
-        console.error('Error:', error.message);
-    }
+  const processor = new LibRaw();
+
+  try {
+    // Load RAW file
+    await processor.loadFile("photo.cr2");
+
+    // Extract metadata
+    const metadata = await processor.getMetadata();
+    console.log("Camera:", metadata.make, metadata.model);
+    console.log(
+      "Settings:",
+      `ISO ${metadata.iso}, f/${metadata.aperture}, ${metadata.focalLength}mm`
+    );
+
+    // Get image dimensions
+    const size = await processor.getImageSize();
+    console.log("Size:", `${size.width} × ${size.height} pixels`);
+
+    // Always clean up
+    await processor.close();
+  } catch (error) {
+    console.error("Error:", error.message);
+  }
 }
 
 processRAW();
@@ -83,15 +85,20 @@ processRAW();
 ## API Reference
 
 ### `new LibRaw()`
+
 Creates a new LibRaw processor instance.
 
 ### `loadFile(filename)`
+
 Loads a RAW file from the filesystem.
+
 - **filename** `{string}` - Path to the RAW file
 - **Returns** `{Promise<boolean>}` - Success status
 
 ### `getMetadata()`
+
 Extracts comprehensive metadata from the loaded RAW file.
+
 - **Returns** `{Promise<Object>}` - Metadata object containing:
   ```javascript
   {
@@ -112,7 +119,9 @@ Extracts comprehensive metadata from the loaded RAW file.
   ```
 
 ### `getImageSize()`
+
 Gets image dimensions.
+
 - **Returns** `{Promise<Object>}` - Size information:
   ```javascript
   {
@@ -124,7 +133,9 @@ Gets image dimensions.
   ```
 
 ### `close()`
+
 Closes the processor and frees all resources.
+
 - **Returns** `{Promise<boolean>}` - Success status
 
 ## Testing
@@ -231,18 +242,21 @@ npm run test:quick
 ## Roadmap
 
 ### Version 1.0 (Current)
+
 - ✅ RAW file loading and metadata extraction
 - ✅ Comprehensive EXIF data access
 - ✅ Memory-efficient processing
 - ✅ Promise-based API
 
 ### Version 2.0 (Planned)
+
 - 🔄 Asynchronous processing with worker threads
 - 🔄 RAW to RGB image decoding
 - 🔄 Image processing (white balance, exposure, etc.)
 - 🔄 Export to JPEG/PNG/TIFF
 
 ### Version 3.0 (Future)
+
 - 📋 Batch processing capabilities
 - 📋 Streaming support for large files
 - 📋 Advanced color management
@@ -262,15 +276,18 @@ LibRaw Node.js provides excellent performance for RAW processing:
 ### Build Issues
 
 **Error: Cannot find module 'node-addon-api'**
+
 ```bash
 npm install node-addon-api
 ```
 
 **Error: MSBuild.exe failed with exit code: 1**
+
 - Install Visual Studio Build Tools
 - Ensure Python 3.x is available
 
 **Error: libraw.dll not found**
+
 ```bash
 npm run build  # Rebuilds and copies DLL
 ```
@@ -278,6 +295,7 @@ npm run build  # Rebuilds and copies DLL
 ### Runtime Issues
 
 **Error: Failed to open file**
+
 - Check file path and permissions
 - Verify file is a valid RAW format
 - Ensure file is not corrupted
@@ -294,9 +312,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Support
 
-- 📖 [Documentation](https://github.com/yourusername/libraw-node#readme)
-- 🐛 [Issues](https://github.com/yourusername/libraw-node/issues)
-- 💬 [Discussions](https://github.com/yourusername/libraw-node/discussions)
+- 📖 [Documentation](https://github.com/unique01082/libraw-node#readme)
+- 🐛 [Issues](https://github.com/unique01082/libraw-node/issues)
+- 💬 [Discussions](https://github.com/unique01082/libraw-node/discussions)
 
 ---
 

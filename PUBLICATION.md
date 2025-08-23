@@ -5,12 +5,14 @@ This guide will walk you through publishing your LibRaw Node.js project to GitHu
 ## 📋 Pre-Publication Checklist
 
 ### ✅ Tests Completed
+
 - [x] All format tests passing (21/21 files)
 - [x] Performance benchmarks completed
 - [x] Comprehensive test coverage
 - [x] Documentation generated
 
 ### ✅ Project Structure
+
 - [x] Clean folder structure
 - [x] TypeScript definitions included
 - [x] Proper package.json configuration
@@ -18,6 +20,7 @@ This guide will walk you through publishing your LibRaw Node.js project to GitHu
 - [x] CHANGELOG.md created
 
 ### ✅ Quality Checks
+
 - [x] No hardcoded paths
 - [x] Cross-platform compatibility
 - [x] Memory leak free
@@ -40,7 +43,7 @@ This guide will walk you through publishing your LibRaw Node.js project to GitHu
 
 ```bash
 # Add remote origin (replace with your GitHub username)
-git remote add origin https://github.com/yourusername/libraw-node.git
+git remote add origin https://github.com/unique01082/libraw-node.git
 
 # Verify remote
 git remote -v
@@ -52,6 +55,7 @@ git push -u origin main
 ### 1.3 Verify GitHub Setup
 
 Check your repository includes:
+
 - ✅ All source files
 - ✅ README.md with badges
 - ✅ LICENSE file
@@ -75,21 +79,22 @@ Update `package.json` with your details:
 # Update author information
 npm config set init-author-name "Your Name"
 npm config set init-author-email "your.email@example.com"
-npm config set init-author-url "https://github.com/yourusername"
+npm config set init-author-url "https://github.com/unique01082"
 ```
 
 Edit `package.json`:
+
 ```json
 {
   "author": "Your Name <your.email@example.com>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/libraw-node.git"
+    "url": "https://github.com/unique01082/libraw-node.git"
   },
   "bugs": {
-    "url": "https://github.com/yourusername/libraw-node/issues"
+    "url": "https://github.com/unique01082/libraw-node/issues"
   },
-  "homepage": "https://github.com/yourusername/libraw-node#readme"
+  "homepage": "https://github.com/unique01082/libraw-node#readme"
 }
 ```
 
@@ -155,6 +160,7 @@ git push origin v1.0.0
 ```
 
 Then create release on GitHub:
+
 1. Go to repository → Releases → Create new release
 2. Tag: `v1.0.0`
 3. Title: `LibRaw Node.js v1.0.0 - Initial Release`
@@ -163,6 +169,7 @@ Then create release on GitHub:
 ### 3.3 Documentation Website (Optional)
 
 Consider setting up GitHub Pages:
+
 1. Repository → Settings → Pages
 2. Source: Deploy from branch `main` `/docs` folder
 3. Custom domain (optional)
@@ -182,21 +189,25 @@ npm run upgrade:libraw
 1. **Download New LibRaw**: Visit [LibRaw Downloads](https://www.libraw.org/download)
 
 2. **Backup Current Version**:
+
    ```bash
    xcopy deps deps-backup-%date:~-4,4%%date:~-10,2%%date:~-7,2% /E /I /H
    ```
 
 3. **Replace Library Files**:
+
    - Extract new `LibRaw-X.X.X-Win64.zip`
    - Replace `deps/LibRaw-Win64/` contents
    - Ensure all required files are present
 
 4. **Update Build Configuration** (if needed):
+
    ```json
    // binding.gyp - update paths if LibRaw structure changed
    ```
 
 5. **Rebuild and Test**:
+
    ```bash
    npm run clean
    npm run build
@@ -204,6 +215,7 @@ npm run upgrade:libraw
    ```
 
 6. **Update Documentation**:
+
    ```bash
    npm run docs:generate
    ```
@@ -220,17 +232,20 @@ npm run upgrade:libraw
 ### Build Issues
 
 **Error: Python not found**
+
 ```bash
 npm config set python python3
 # or install Python 3.x
 ```
 
 **Error: Visual Studio not found (Windows)**
+
 ```bash
 npm install --global windows-build-tools
 ```
 
 **Error: node-gyp failed**
+
 ```bash
 npm install --global node-gyp
 node-gyp configure
@@ -239,16 +254,19 @@ node-gyp configure
 ### Publishing Issues
 
 **Error: Package name already exists**
-- Use scoped package: `@yourusername/libraw-node`
+
+- Use scoped package: `@unique01082/libraw-node`
 - Choose different name: `libraw-nodejs`, `node-libraw`
 
 **Error: Not authorized**
+
 ```bash
 npm logout
 npm login
 ```
 
 **Error: 2FA required**
+
 ```bash
 npm publish --otp=123456
 ```
@@ -258,18 +276,21 @@ npm publish --otp=123456
 After publication, monitor:
 
 ### GitHub Metrics
+
 - ⭐ Stars and forks
 - 🐛 Issues and discussions
 - 📈 Traffic and clones
 - 🤝 Contributors
 
 ### npm Metrics
+
 - 📦 Download counts
 - 🔄 Version adoption
 - 💬 Community feedback
 - 🔍 Search ranking
 
 ### Usage Analytics
+
 - 📧 Support requests
 - 📝 Blog mentions
 - 🎯 Use cases
@@ -278,12 +299,14 @@ After publication, monitor:
 ## 🎯 Next Steps
 
 1. **Community Building**:
+
    - Share on social media
    - Post in relevant forums
    - Write blog posts
    - Create video tutorials
 
 2. **Feature Development**:
+
    - Gather user feedback
    - Plan v2.0 features
    - Implement full image decoding
@@ -298,6 +321,7 @@ After publication, monitor:
 ## 📞 Support Channels
 
 Set up these support channels:
+
 - 📧 Email: your.email@example.com
 - 🐛 GitHub Issues: Bug reports and feature requests
 - 💬 GitHub Discussions: Community support
@@ -309,6 +333,7 @@ Set up these support channels:
 **Congratulations! Your LibRaw Node.js project is ready for the world! 🎉**
 
 Remember to:
+
 - Keep documentation updated
 - Respond to community feedback
 - Maintain regular releases
