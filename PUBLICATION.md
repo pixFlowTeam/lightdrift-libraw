@@ -34,7 +34,7 @@ This guide will walk you through publishing your LibRaw Node.js project to GitHu
 1. Go to [GitHub.com](https://github.com)
 2. Click "New Repository"
 3. Repository settings:
-   - **Name**: `libraw-node`
+   - **Name**: `lightdrift-libraw`
    - **Description**: `Node.js Native Addon for LibRaw - Process RAW image files with JavaScript`
    - **Visibility**: Public
    - **Initialize**: ❌ Don't add README/License (we have them)
@@ -43,7 +43,7 @@ This guide will walk you through publishing your LibRaw Node.js project to GitHu
 
 ```bash
 # Add remote origin (replace with your GitHub username)
-git remote add origin https://github.com/unique01082/libraw-node.git
+git remote add origin https://github.com/unique01082/lightdrift-libraw.git
 
 # Verify remote
 git remote -v
@@ -89,12 +89,12 @@ Edit `package.json`:
   "author": "Your Name <your.email@example.com>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/unique01082/libraw-node.git"
+    "url": "https://github.com/unique01082/lightdrift-libraw.git"
   },
   "bugs": {
-    "url": "https://github.com/unique01082/libraw-node/issues"
+    "url": "https://github.com/unique01082/lightdrift-libraw/issues"
   },
-  "homepage": "https://github.com/unique01082/libraw-node#readme"
+  "homepage": "https://github.com/unique01082/lightdrift-libraw#readme"
 }
 ```
 
@@ -136,8 +136,8 @@ npm publish
 
 ### 2.5 Verify Publication
 
-1. Check package page: `https://www.npmjs.com/package/libraw-node`
-2. Test installation: `npm install libraw-node`
+1. Check package page: `https://www.npmjs.com/package/lightdrift-libraw`
+2. Test installation: `npm install lightdrift-libraw`
 3. Update README badges with real npm stats
 
 ## 📈 Step 3: Post-Publication Setup
@@ -147,8 +147,8 @@ npm publish
 Replace placeholder badges in README.md:
 
 ```markdown
-[![npm version](https://badge.fury.io/js/libraw-node.svg)](https://www.npmjs.com/package/libraw-node)
-[![Downloads](https://img.shields.io/npm/dm/libraw-node.svg)](https://www.npmjs.com/package/libraw-node)
+[![npm version](https://badge.fury.io/js/lightdrift-libraw.svg)](https://www.npmjs.com/package/lightdrift-libraw)
+[![Downloads](https://img.shields.io/npm/dm/lightdrift-libraw.svg)](https://www.npmjs.com/package/lightdrift-libraw)
 ```
 
 ### 3.2 Add GitHub Release
@@ -255,8 +255,8 @@ node-gyp configure
 
 **Error: Package name already exists**
 
-- Use scoped package: `@unique01082/libraw-node`
-- Choose different name: `libraw-nodejs`, `node-libraw`
+- Use scoped package: `@unique01082/lightdrift-libraw`
+- Choose different name: `lightdrift-librawjs`, `node-libraw`
 
 **Error: Not authorized**
 

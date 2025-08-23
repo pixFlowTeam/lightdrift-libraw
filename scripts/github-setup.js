@@ -46,7 +46,7 @@ try {
   console.log("1. Create a new repository on GitHub");
   console.log("2. Add the remote origin:");
   console.log(
-    "   git remote add origin https://github.com/unique01082/libraw-node.git"
+    "   git remote add origin https://github.com/unique01082/lightdrift-libraw.git"
   );
   console.log("3. Push to GitHub:");
   console.log("   git branch -M main");

@@ -1,89 +1,91 @@
-const fs = require('fs');
-const path = require('path');
-const https = require('https');
-const { execSync } = require('child_process');
+const fs = require("fs");
+const path = require("path");
+const https = require("https");
+const { execSync } = require("child_process");
 
 class LibRawUpgrader {
-    constructor() {
-        this.depsDir = path.join(__dirname, '../deps');
-        this.currentVersion = this.getCurrentVersion();
-    }
+  constructor() {
+    this.depsDir = path.join(__dirname, "../deps");
+    this.currentVersion = this.getCurrentVersion();
+  }
 
-    getCurrentVersion() {
-        try {
-            const librawDir = fs.readdirSync(this.depsDir)
-                .find(dir => dir.startsWith('LibRaw-') && dir.includes('Win64'));
-            
-            if (librawDir) {
-                const match = librawDir.match(/LibRaw-(\d+\.\d+\.\d+)/);
-                return match ? match[1] : null;
+  getCurrentVersion() {
+    try {
+      const librawDir = fs
+        .readdirSync(this.depsDir)
+        .find((dir) => dir.startsWith("LibRaw-") && dir.includes("Win64"));
+
+      if (librawDir) {
+        const match = librawDir.match(/LibRaw-(\d+\.\d+\.\d+)/);
+        return match ? match[1] : null;
+      }
+    } catch (error) {
+      console.warn("Could not determine current LibRaw version");
+    }
+    return null;
+  }
+
+  async checkLatestVersion() {
+    return new Promise((resolve, reject) => {
+      console.log("🔍 Checking for latest LibRaw version...");
+
+      const options = {
+        hostname: "www.libraw.org",
+        path: "/download",
+        method: "GET",
+        headers: {
+          "User-Agent": "lightdrift-libraw-upgrader",
+        },
+      };
+
+      const req = https.request(options, (res) => {
+        let data = "";
+        res.on("data", (chunk) => (data += chunk));
+        res.on("end", () => {
+          try {
+            // Look for version pattern in the HTML
+            const versionMatch = data.match(/LibRaw-(\d+\.\d+\.\d+)/g);
+            if (versionMatch) {
+              const versions = versionMatch
+                .map((v) => v.replace("LibRaw-", ""))
+                .sort((a, b) => this.compareVersions(b, a));
+              resolve(versions[0]);
+            } else {
+              reject(new Error("Could not find version information"));
             }
-        } catch (error) {
-            console.warn('Could not determine current LibRaw version');
-        }
-        return null;
-    }
-
-    async checkLatestVersion() {
-        return new Promise((resolve, reject) => {
-            console.log('🔍 Checking for latest LibRaw version...');
-            
-            const options = {
-                hostname: 'www.libraw.org',
-                path: '/download',
-                method: 'GET',
-                headers: {
-                    'User-Agent': 'libraw-node-upgrader'
-                }
-            };
-
-            const req = https.request(options, (res) => {
-                let data = '';
-                res.on('data', chunk => data += chunk);
-                res.on('end', () => {
-                    try {
-                        // Look for version pattern in the HTML
-                        const versionMatch = data.match(/LibRaw-(\d+\.\d+\.\d+)/g);
-                        if (versionMatch) {
-                            const versions = versionMatch.map(v => v.replace('LibRaw-', ''))
-                                .sort((a, b) => this.compareVersions(b, a));
-                            resolve(versions[0]);
-                        } else {
-                            reject(new Error('Could not find version information'));
-                        }
-                    } catch (error) {
-                        reject(error);
-                    }
-                });
-            });
-
-            req.on('error', reject);
-            req.setTimeout(10000, () => {
-                req.abort();
-                reject(new Error('Request timeout'));
-            });
-            req.end();
+          } catch (error) {
+            reject(error);
+          }
         });
+      });
+
+      req.on("error", reject);
+      req.setTimeout(10000, () => {
+        req.abort();
+        reject(new Error("Request timeout"));
+      });
+      req.end();
+    });
+  }
+
+  compareVersions(a, b) {
+    const aParts = a.split(".").map(Number);
+    const bParts = b.split(".").map(Number);
+
+    for (let i = 0; i < Math.max(aParts.length, bParts.length); i++) {
+      const aPart = aParts[i] || 0;
+      const bPart = bParts[i] || 0;
+
+      if (aPart > bPart) return 1;
+      if (aPart < bPart) return -1;
     }
+    return 0;
+  }
 
-    compareVersions(a, b) {
-        const aParts = a.split('.').map(Number);
-        const bParts = b.split('.').map(Number);
-        
-        for (let i = 0; i < Math.max(aParts.length, bParts.length); i++) {
-            const aPart = aParts[i] || 0;
-            const bPart = bParts[i] || 0;
-            
-            if (aPart > bPart) return 1;
-            if (aPart < bPart) return -1;
-        }
-        return 0;
-    }
+  generateUpgradeGuide(newVersion) {
+    const guide = `# LibRaw Upgrade Guide
 
-    generateUpgradeGuide(newVersion) {
-        const guide = `# LibRaw Upgrade Guide
-
-## Upgrading from ${this.currentVersion || 'current'} to ${newVersion}
+## Upgrading from ${this.currentVersion || "current"} to ${newVersion}
 
 ### Automatic Upgrade (Recommended)
 
@@ -286,12 +288,12 @@ npm publish
 \`\`\`
 `;
 
-        return guide;
-    }
+    return guide;
+  }
 
-    getVersionNotes(version) {
-        // This would ideally fetch real release notes
-        return `Check the official LibRaw changelog at:
+  getVersionNotes(version) {
+    // This would ideally fetch real release notes
+    return `Check the official LibRaw changelog at:
 https://github.com/LibRaw/LibRaw/releases/tag/${version}
 
 Common improvements in newer versions:
@@ -300,23 +302,23 @@ Common improvements in newer versions:
 - Bug fixes in metadata extraction
 - Enhanced color profile handling
 - Security updates`;
-    }
+  }
 
-    async performUpgrade(targetVersion) {
-        console.log(`🚀 Starting upgrade to LibRaw ${targetVersion}...`);
-        
-        try {
-            // Create backup
-            const backupDir = `deps-backup-${Date.now()}`;
-            console.log('📦 Creating backup...');
-            execSync(`xcopy deps ${backupDir} /E /I /H`, { cwd: __dirname });
-            
-            // Generate upgrade guide
-            const guide = this.generateUpgradeGuide(targetVersion);
-            fs.writeFileSync(path.join(__dirname, '../UPGRADE.md'), guide);
-            console.log('✅ Generated UPGRADE.md');
-            
-            console.log(`
+  async performUpgrade(targetVersion) {
+    console.log(`🚀 Starting upgrade to LibRaw ${targetVersion}...`);
+
+    try {
+      // Create backup
+      const backupDir = `deps-backup-${Date.now()}`;
+      console.log("📦 Creating backup...");
+      execSync(`xcopy deps ${backupDir} /E /I /H`, { cwd: __dirname });
+
+      // Generate upgrade guide
+      const guide = this.generateUpgradeGuide(targetVersion);
+      fs.writeFileSync(path.join(__dirname, "../UPGRADE.md"), guide);
+      console.log("✅ Generated UPGRADE.md");
+
+      console.log(`
 📋 Upgrade prepared for LibRaw ${targetVersion}
 
 Next steps:
@@ -326,43 +328,43 @@ Next steps:
 
 The current installation has been backed up to: ${backupDir}
 `);
-            
-        } catch (error) {
-            console.error('❌ Upgrade preparation failed:', error.message);
-            process.exit(1);
-        }
+    } catch (error) {
+      console.error("❌ Upgrade preparation failed:", error.message);
+      process.exit(1);
     }
+  }
 
-    async run() {
-        console.log('🔄 LibRaw Upgrade Assistant');
-        console.log('===========================\n');
-        
-        console.log(`Current version: ${this.currentVersion || 'Unknown'}`);
-        
-        try {
-            const latestVersion = await this.checkLatestVersion();
-            console.log(`Latest version: ${latestVersion}`);
-            
-            if (this.currentVersion === latestVersion) {
-                console.log('✅ You are already running the latest version!');
-                return;
-            }
-            
-            if (this.compareVersions(latestVersion, this.currentVersion) > 0) {
-                console.log(`📢 New version available: ${latestVersion}`);
-                await this.performUpgrade(latestVersion);
-            } else {
-                console.log('ℹ️  Your version appears to be newer than the latest release');
-            }
-            
-        } catch (error) {
-            console.error('❌ Failed to check for updates:', error.message);
-            console.log('\n📖 Generating manual upgrade guide...');
-            const guide = this.generateUpgradeGuide('X.X.X');
-            fs.writeFileSync(path.join(__dirname, '../UPGRADE.md'), guide);
-            console.log('✅ Manual upgrade guide created as UPGRADE.md');
-        }
+  async run() {
+    console.log("🔄 LibRaw Upgrade Assistant");
+    console.log("===========================\n");
+
+    console.log(`Current version: ${this.currentVersion || "Unknown"}`);
+
+    try {
+      const latestVersion = await this.checkLatestVersion();
+      console.log(`Latest version: ${latestVersion}`);
+
+      if (this.currentVersion === latestVersion) {
+        console.log("✅ You are already running the latest version!");
+        return;
+      }
+
+      if (this.compareVersions(latestVersion, this.currentVersion) > 0) {
+        console.log(`📢 New version available: ${latestVersion}`);
+        await this.performUpgrade(latestVersion);
+      } else {
+        console.log(
+          "ℹ️  Your version appears to be newer than the latest release"
+        );
+      }
+    } catch (error) {
+      console.error("❌ Failed to check for updates:", error.message);
+      console.log("\n📖 Generating manual upgrade guide...");
+      const guide = this.generateUpgradeGuide("X.X.X");
+      fs.writeFileSync(path.join(__dirname, "../UPGRADE.md"), guide);
+      console.log("✅ Manual upgrade guide created as UPGRADE.md");
     }
+  }
 }
 
 // Export the class
@@ -370,6 +372,6 @@ module.exports = LibRawUpgrader;
 
 // Run if executed directly
 if (require.main === module) {
-    const upgrader = new LibRawUpgrader();
-    upgrader.run().catch(console.error);
+  const upgrader = new LibRawUpgrader();
+  upgrader.run().catch(console.error);
 }

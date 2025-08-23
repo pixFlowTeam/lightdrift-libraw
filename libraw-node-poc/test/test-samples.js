@@ -6,7 +6,7 @@ async function testAllSamples() {
   console.log("LibRaw Node.js POC - Sample Images Test");
   console.log("=======================================\n");
 
-  const sampleDir = path.join(__dirname, "../sample-images");
+  const sampleDir = path.join(__dirname, "../../sample-images");
 
   try {
     // Get all NEF files

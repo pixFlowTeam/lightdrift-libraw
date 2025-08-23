@@ -2,7 +2,7 @@
 
 A high-performance Node.js Native Addon for processing RAW image files using the LibRaw library.
 
-[![npm version](https://badge.fury.io/js/libraw-node.svg)](https://badge.fury.io/js/libraw-node)
+[![npm version](https://badge.fury.io/js/lightdrift-libraw.svg)](https://badge.fury.io/js/lightdrift-libraw)
 [![Node.js Version](https://img.shields.io/badge/node-%3E%3D14.0.0-brightgreen.svg)](https://nodejs.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
@@ -37,7 +37,7 @@ LibRaw supports 100+ RAW formats including:
 ## Installation
 
 ```bash
-npm install libraw-node
+npm install lightdrift-libraw
 ```
 
 ## Prerequisites (for building from source)
@@ -51,7 +51,7 @@ npm install libraw-node
 ## Quick Start
 
 ```javascript
-const LibRaw = require("libraw-node");
+const LibRaw = require("lightdrift-libraw");
 
 async function processRAW() {
   const processor = new LibRaw();
@@ -187,7 +187,7 @@ node examples/basic-example.js path/to/your/photo.cr2
 ## Project Structure
 
 ```
-libraw-node/
+lightdrift-libraw/
 ├── src/                    # C++ source files
 │   ├── addon.cpp          # Main addon entry point
 │   ├── libraw_wrapper.cpp # LibRaw C++ wrapper
@@ -312,9 +312,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Support
 
-- 📖 [Documentation](https://github.com/unique01082/libraw-node#readme)
-- 🐛 [Issues](https://github.com/unique01082/libraw-node/issues)
-- 💬 [Discussions](https://github.com/unique01082/libraw-node/discussions)
+- 📖 [Documentation](https://github.com/unique01082/lightdrift-libraw#readme)
+- 🐛 [Issues](https://github.com/unique01082/lightdrift-libraw/issues)
+- 💬 [Discussions](https://github.com/unique01082/lightdrift-libraw/discussions)
 
 ---
 

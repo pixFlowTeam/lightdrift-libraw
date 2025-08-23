@@ -1,5 +1,5 @@
 {
-  "name": "libraw-node",
+  "name": "lightdrift-libraw",
   "version": "1.0.0",
   "description": "Node.js Native Addon for LibRaw - Process RAW image files with JavaScript",
   "main": "lib/index.js",
@@ -76,10 +76,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/unique01082/libraw-node.git"
+    "url": "https://github.com/unique01082/lightdrift-libraw.git"
   },
   "bugs": {
-    "url": "https://github.com/unique01082/libraw-node/issues"
+    "url": "https://github.com/unique01082/lightdrift-libraw/issues"
   },
-  "homepage": "https://github.com/unique01082/libraw-node#readme"
+  "homepage": "https://github.com/unique01082/lightdrift-libraw#readme"
 }

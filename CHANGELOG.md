@@ -8,7 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0] - 2025-08-23
 
 ### Added
-- Initial release of libraw-node
+
+- Initial release of lightdrift-libraw
 - Native Node.js addon for LibRaw 0.21.4
 - Support for 6 major RAW formats:
   - Canon CR2/CR3
@@ -31,6 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Detailed documentation and examples
 
 ### Features
+
 - **Fast Processing**: 115+ MB/s average throughput
 - **Format Coverage**: 100+ RAW formats supported via LibRaw
 - **Metadata Rich**: Extracts 12+ metadata fields
@@ -39,14 +41,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Developer Friendly**: Full TypeScript support
 
 ### Performance
+
 - Canon CR3: ~47 MB/s average
-- Nikon NEF: ~30 MB/s average  
+- Nikon NEF: ~30 MB/s average
 - Fujifilm RAF: ~261 MB/s average
 - Sony ARW: ~339 MB/s average
 - Panasonic RW2: ~66 MB/s average
 - Adobe DNG: ~32 MB/s average
 
 ### Tested Cameras
+
 - Canon EOS R5
 - Nikon D5600, D500
 - Fujifilm X-M5
@@ -55,6 +59,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Leica Q3 43
 
 ### Documentation
+
 - Complete API documentation
 - Usage examples for common scenarios
 - Supported formats reference
@@ -64,6 +69,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Planned Features
+
 - Full RAW image decoding to RGB
 - Thumbnail extraction
 - Additional metadata fields

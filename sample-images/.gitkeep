@@ -1,6 +1,9 @@
 # Keep this directory in git but ignore large sample files
+
 # Users can add their own RAW sample files for testing
 
 # Example usage:
+
 # Place your RAW files here and run:
+
 # npm test sample-images/your-file.cr2

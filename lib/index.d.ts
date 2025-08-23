@@ -1,41 +1,41 @@
-declare module 'libraw-node' {
+declare module 'lightdrift-libraw' {
   /**
    * LibRaw image metadata interface
    */
   export interface LibRawMetadata {
     /** Camera manufacturer (e.g., "Canon", "Nikon", "Sony") */
     make: string;
-    
+
     /** Camera model (e.g., "EOS R5", "D850", "α7R IV") */
     model: string;
-    
+
     /** ISO sensitivity value */
     iso: number;
-    
+
     /** Aperture value (f-number) */
     aperture: number;
-    
+
     /** Shutter speed in seconds */
     shutterSpeed: number;
-    
+
     /** Focal length in millimeters */
     focalLength: number;
-    
+
     /** Timestamp when the image was captured (Unix timestamp) */
     timestamp: number;
-    
+
     /** Number of color channels/planes */
     colors: number;
-    
+
     /** Color filter array pattern (hexadecimal) */
     filters: number;
-    
+
     /** Camera description string */
     description?: string;
-    
+
     /** Artist/photographer name */
     artist?: string;
-    
+
     /** Copyright information */
     copyright?: string;
   }
@@ -46,7 +46,7 @@ declare module 'libraw-node' {
   export interface LibRawImageSize {
     /** Image width in pixels */
     width: number;
-    
+
     /** Image height in pixels */
     height: number;
   }
@@ -57,19 +57,19 @@ declare module 'libraw-node' {
   export interface LibRawOptions {
     /** Use embedded color profile */
     useEmbeddedProfile?: boolean;
-    
+
     /** Color space for output (0=raw, 1=sRGB, 2=Adobe RGB, 3=Wide Gamut, 4=ProPhoto, 5=XYZ) */
     outputColorSpace?: number;
-    
+
     /** Gamma correction (typically 2.2 for sRGB) */
     gamma?: number;
-    
+
     /** Use camera white balance */
     useCameraWhiteBalance?: boolean;
-    
+
     /** Highlight recovery mode (0-9) */
     highlightMode?: number;
-    
+
     /** Four-color RGB interpolation */
     fourColorRGB?: boolean;
   }
@@ -153,12 +153,12 @@ declare module 'libraw-node' {
    * Version information
    */
   export const version: {
-    /** libraw-node package version */
+    /** lightdrift-libraw package version */
     package: string;
-    
+
     /** LibRaw library version */
     libraw: string;
-    
+
     /** Node.js version used for compilation */
     node: string;
   };

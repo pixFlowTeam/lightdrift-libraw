@@ -1,10 +1,10 @@
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
 function generateAPIDocumentation() {
-    console.log('📚 Generating API Documentation...\n');
+  console.log("📚 Generating API Documentation...\n");
 
-    const apiDocs = `# API Documentation
+  const apiDocs = `# API Documentation
 
 ## LibRaw Class
 
@@ -13,7 +13,7 @@ The main class for processing RAW image files.
 ### Constructor
 
 \`\`\`javascript
-const LibRaw = require('libraw-node');
+const LibRaw = require('lightdrift-libraw');
 const processor = new LibRaw();
 \`\`\`
 
@@ -131,7 +131,7 @@ try {
 ## Complete Example
 
 \`\`\`javascript
-const LibRaw = require('libraw-node');
+const LibRaw = require('lightdrift-libraw');
 
 async function processRAWFile(filepath) {
   const processor = new LibRaw();
@@ -167,17 +167,17 @@ processRAWFile('/path/to/image.nef')
 \`\`\`
 `;
 
-    // Write API documentation
-    fs.writeFileSync(path.join(__dirname, '../docs/API.md'), apiDocs);
-    console.log('✅ Generated API.md');
+  // Write API documentation
+  fs.writeFileSync(path.join(__dirname, "../docs/API.md"), apiDocs);
+  console.log("✅ Generated API.md");
 
-    // Generate usage examples
-    const examples = `# Usage Examples
+  // Generate usage examples
+  const examples = `# Usage Examples
 
 ## Basic RAW File Processing
 
 \`\`\`javascript
-const LibRaw = require('libraw-node');
+const LibRaw = require('lightdrift-libraw');
 
 async function basicExample() {
   const processor = new LibRaw();
@@ -374,7 +374,7 @@ async function robustProcessing(filepath) {
 \`\`\`javascript
 const express = require('express');
 const multer = require('multer');
-const LibRaw = require('libraw-node');
+const LibRaw = require('lightdrift-libraw');
 
 const app = express();
 const upload = multer({ dest: 'uploads/' });
@@ -420,17 +420,17 @@ app.post('/analyze-raw', upload.single('rawFile'), async (req, res) => {
 \`\`\`
 `;
 
-    // Create docs directory if it doesn't exist
-    const docsDir = path.join(__dirname, '../docs');
-    if (!fs.existsSync(docsDir)) {
-        fs.mkdirSync(docsDir);
-    }
+  // Create docs directory if it doesn't exist
+  const docsDir = path.join(__dirname, "../docs");
+  if (!fs.existsSync(docsDir)) {
+    fs.mkdirSync(docsDir);
+  }
 
-    fs.writeFileSync(path.join(docsDir, 'EXAMPLES.md'), examples);
-    console.log('✅ Generated EXAMPLES.md');
+  fs.writeFileSync(path.join(docsDir, "EXAMPLES.md"), examples);
+  console.log("✅ Generated EXAMPLES.md");
 
-    // Generate supported formats documentation
-    const formats = `# Supported RAW Formats
+  // Generate supported formats documentation
+  const formats = `# Supported RAW Formats
 
 ## Overview
 
@@ -564,10 +564,10 @@ LibRaw regularly adds support for new cameras. To update:
 See the upgrade guide for detailed instructions.
 `;
 
-    fs.writeFileSync(path.join(docsDir, 'FORMATS.md'), formats);
-    console.log('✅ Generated FORMATS.md');
+  fs.writeFileSync(path.join(docsDir, "FORMATS.md"), formats);
+  console.log("✅ Generated FORMATS.md");
 
-    console.log('\n📚 Documentation generation complete!');
+  console.log("\n📚 Documentation generation complete!");
 }
 
 // Export the function
@@ -575,5 +575,5 @@ module.exports = generateAPIDocumentation;
 
 // Run if executed directly
 if (require.main === module) {
-    generateAPIDocumentation();
+  generateAPIDocumentation();
 }

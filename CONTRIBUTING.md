@@ -7,8 +7,8 @@ Thank you for your interest in contributing to LibRaw Node.js! This document pro
 1. **Fork and Clone**
 
    ```bash
-   git clone https://github.com/unique01082/libraw-node.git
-   cd libraw-node
+   git clone https://github.com/unique01082/lightdrift-libraw.git
+   cd lightdrift-libraw
    ```
 
 2. **Install Dependencies**

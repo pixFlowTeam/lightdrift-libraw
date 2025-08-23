@@ -1,0 +1,27 @@
+{
+  "name": "lightdrift-libraw-poc",
+  "version": "0.1.0",
+  "description": "LibRaw Node.js Native Addon - Proof of Concept",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "node-gyp rebuild",
+    "test": "node test/test.js",
+    "install": "node-gyp rebuild"
+  },
+  "dependencies": {
+    "node-addon-api": "^7.0.0"
+  },
+  "devDependencies": {
+    "node-gyp": "^10.0.0"
+  },
+  "gypfile": true,
+  "keywords": [
+    "libraw",
+    "raw",
+    "image",
+    "photography",
+    "native-addon"
+  ],
+  "author": "Your Name",
+  "license": "MIT"
+}
