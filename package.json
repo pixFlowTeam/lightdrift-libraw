@@ -3,15 +3,27 @@
   "version": "1.0.0",
   "description": "Node.js Native Addon for LibRaw - Process RAW image files with JavaScript",
   "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
     "build": "node-gyp rebuild",
-    "test": "node test/test.js",
+    "rebuild": "npm run clean && npm run build",
+    "test": "npm run test:basic && npm run test:formats && npm run test:performance",
+    "test:basic": "node test/test.js",
+    "test:formats": "node test/all-formats.test.js", 
+    "test:performance": "node test/performance.test.js",
     "test:samples": "node test/test-samples.js",
     "test:compare": "node test/compare-samples.js",
     "test:quick": "node test/quick-test.js",
+    "pretest": "npm run build",
+    "prepublishOnly": "npm run test",
     "install": "node-gyp rebuild",
     "clean": "node-gyp clean",
-    "setup:github": "node scripts/github-setup.js"
+    "setup:github": "node scripts/github-setup.js",
+    "docs:generate": "node scripts/generate-docs.js",
+    "upgrade:libraw": "node scripts/upgrade-libraw.js",
+    "version:check": "node -e \"console.log('Package:', require('./package.json').version); console.log('Node:', process.version);\"",
+    "publish:check": "npm run test && npm run docs:generate",
+    "publish:dry": "npm publish --dry-run"
   },
   "dependencies": {
     "node-addon-api": "^7.0.0"
@@ -23,6 +35,20 @@
     "node": ">=14.0.0"
   },
   "gypfile": true,
+  "files": [
+    "lib/**/*",
+    "src/**/*",
+    "deps/**/*",
+    "binding.gyp",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "os": [
+    "win32",
+    "darwin",
+    "linux"
+  ],
   "keywords": [
     "libraw",
     "raw",
@@ -30,12 +56,21 @@
     "photography",
     "native-addon",
     "nef",
-    "cr2",
+    "cr2", 
     "cr3",
     "arw",
     "dng",
+    "raf",
+    "rw2",
     "metadata",
-    "exif"
+    "exif",
+    "canon",
+    "nikon", 
+    "sony",
+    "fujifilm",
+    "panasonic",
+    "leica",
+    "adobe-dng"
   ],
   "author": "Your Name <your.email@example.com>",
   "license": "MIT",

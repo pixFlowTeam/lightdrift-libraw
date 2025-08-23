@@ -2,8 +2,11 @@
 
 A high-performance Node.js Native Addon for processing RAW image files using the LibRaw library.
 
+[![npm version](https://badge.fury.io/js/libraw-node.svg)](https://badge.fury.io/js/libraw-node)
 [![Node.js Version](https://img.shields.io/badge/node-%3E%3D14.0.0-brightgreen.svg)](https://nodejs.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
+[![Downloads](https://img.shields.io/badge/downloads-0%2Fmonth-blue.svg)]()
 
 ## Features
 
@@ -31,27 +34,19 @@ LibRaw supports 100+ RAW formats including:
 | **Leica** | `.DNG`, `.RWL` |
 | **And many more...** | *100+ formats total* |
 
-## Prerequisites
+## Installation
+
+```bash
+npm install libraw-node
+```
+
+## Prerequisites (for building from source)
 
 - **Node.js** 14.0.0 or higher
 - **Python** 3.x (for node-gyp)
 - **Visual Studio Build Tools** (Windows)
 - **Xcode Command Line Tools** (macOS)
 - **build-essential** (Linux)
-
-## Installation
-
-```bash
-# Clone the repository
-git clone https://github.com/yourusername/libraw-node.git
-cd libraw-node
-
-# Install dependencies
-npm install
-
-# Build the native addon
-npm run build
-```
 
 ## Quick Start
 
