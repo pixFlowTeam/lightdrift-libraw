@@ -77,8 +77,8 @@ Update `package.json` with your details:
 
 ```bash
 # Update author information
-npm config set init-author-name "Your Name"
-npm config set init-author-email "your.email@example.com"
+npm config set init-author-name "Bao LE"
+npm config set init-author-email "bao.lq.it@gmail.com"
 npm config set init-author-url "https://github.com/unique01082"
 ```
 
@@ -86,7 +86,7 @@ Edit `package.json`:
 
 ```json
 {
-  "author": "Your Name <your.email@example.com>",
+  "author": "Bao LE <bao.lq.it@gmail.com>",
   "repository": {
     "type": "git",
     "url": "https://github.com/unique01082/lightdrift-libraw.git"
@@ -155,15 +155,15 @@ Replace placeholder badges in README.md:
 
 ```bash
 # Create and push a tag
-git tag v1.0.0
-git push origin v1.0.0
+git tag v0.1.34-poc
+git push origin v0.1.34-poc
 ```
 
 Then create release on GitHub:
 
 1. Go to repository → Releases → Create new release
-2. Tag: `v1.0.0`
-3. Title: `LibRaw Node.js v1.0.0 - Initial Release`
+2. Tag: `v0.1.34-poc`
+3. Title: `LibRaw Node.js v0.1.34-poc - Initial Release`
 4. Description: Copy from CHANGELOG.md
 
 ### 3.3 Documentation Website (Optional)
@@ -322,7 +322,7 @@ After publication, monitor:
 
 Set up these support channels:
 
-- 📧 Email: your.email@example.com
+- 📧 Email: bao.lq.it@gmail.com
 - 🐛 GitHub Issues: Bug reports and feature requests
 - 💬 GitHub Discussions: Community support
 - 📖 Documentation: Wiki or docs site
