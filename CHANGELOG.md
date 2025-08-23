@@ -14,7 +14,9 @@ This release represents a complete, production-ready implementation of the LibRa
 ### ✨ Added
 
 #### 🔧 Complete LibRaw API Implementation (50+ Methods)
+
 - **Core Operations (10 methods)**
+
   - `loadFile()` - Load RAW files from filesystem
   - `loadBuffer()` - Load RAW data from memory buffer
   - `close()` - Cleanup and resource management
@@ -27,6 +29,7 @@ This release represents a complete, production-ready implementation of the LibRa
   - `freeImage()` - Free processed image memory
 
 - **Metadata & Information (12 methods)**
+
   - `getMetadata()` - Basic camera and image metadata
   - `getImageSize()` - Detailed dimension information
   - `getFileInfo()` - File-specific information
@@ -41,6 +44,7 @@ This release represents a complete, production-ready implementation of the LibRa
   - `errorCount()` - Processing error count
 
 - **Image Processing (8 methods)**
+
   - `createMemoryImage()` - Generate processed image in memory
   - `createMemoryThumbnail()` - Generate thumbnail in memory
   - `getMemImageFormat()` - Memory image format information
@@ -51,6 +55,7 @@ This release represents a complete, production-ready implementation of the LibRa
   - `getMemoryRequirements()` - Memory usage estimation
 
 - **File Writers (6 methods)**
+
   - `writePPM()` - Export to PPM format
   - `writeTIFF()` - Export to TIFF format
   - `writeThumbnail()` - Export thumbnail to JPEG
@@ -59,6 +64,7 @@ This release represents a complete, production-ready implementation of the LibRa
   - Error handling for write operations
 
 - **Configuration (4 methods)**
+
   - `setOutputParams()` - Configure processing parameters
   - `getOutputParams()` - Retrieve current parameters
   - Color space selection (Raw, sRGB, Adobe RGB, Wide Gamut, ProPhoto, XYZ)
@@ -66,6 +72,7 @@ This release represents a complete, production-ready implementation of the LibRa
   - Gamma correction and brightness adjustment
 
 - **Extended Utilities (8 methods)**
+
   - `isFloatingPoint()` - Check for floating point data
   - `isFujiRotated()` - Detect Fuji sensor rotation
   - `isSRAW()` - Detect sRAW format
@@ -76,6 +83,7 @@ This release represents a complete, production-ready implementation of the LibRa
   - `srawMidpoint()` - sRAW midpoint calculation
 
 - **Color Operations (3 methods)**
+
   - `getColorAt()` - Get color value at specific position
   - `getWhiteBalance()` - White balance multipliers
   - `setBayerPattern()` - Set color filter pattern
@@ -87,7 +95,9 @@ This release represents a complete, production-ready implementation of the LibRa
   - `LibRaw.getCameraCount()` - Number of supported cameras
 
 #### 🧪 Comprehensive Testing Framework
+
 - **Image Processing Test Suite** (`test/image-processing.test.js`)
+
   - Thumbnail extraction validation (100% success rate)
   - Image conversion workflow testing
   - Advanced processing feature validation
@@ -95,6 +105,7 @@ This release represents a complete, production-ready implementation of the LibRa
   - Memory operations verification
 
 - **Format Conversion Test Suite** (`test/format-conversion.test.js`)
+
   - Output format validation (PPM, TIFF)
   - Color space conversion testing (6 color spaces)
   - Bit depth processing (8-bit, 16-bit)
@@ -102,6 +113,7 @@ This release represents a complete, production-ready implementation of the LibRa
   - Format header verification
 
 - **Thumbnail Extraction Test Suite** (`test/thumbnail-extraction.test.js`)
+
   - Thumbnail detection across formats
   - Extraction method validation
   - Format analysis (JPEG, TIFF, PNG, Raw RGB)
@@ -115,7 +127,9 @@ This release represents a complete, production-ready implementation of the LibRa
   - Performance benchmarking
 
 #### 🖼️ Advanced Thumbnail Extraction
+
 - **Batch Extraction Script** (`scripts/extract-thumbnails.js`)
+
   - Automated processing of all RAW files
   - High-quality thumbnail preservation
   - Support for 6+ camera brands
@@ -130,9 +144,11 @@ This release represents a complete, production-ready implementation of the LibRa
   - Format identification
 
 #### 📊 Real-World Validation
+
 - **21 RAW files tested** across major camera brands:
+
   - Canon CR3 (3 files) - 2.4-2.6 MB thumbnails
-  - Nikon NEF (6 files) - 1.1-1.9 MB thumbnails  
+  - Nikon NEF (6 files) - 1.1-1.9 MB thumbnails
   - Sony ARW (3 files) - 1.4-6.0 MB thumbnails
   - Fujifilm RAF (3 files) - 2.9-5.5 MB thumbnails
   - Panasonic RW2 (3 files) - 380KB-1MB thumbnails
@@ -140,13 +156,15 @@ This release represents a complete, production-ready implementation of the LibRa
 
 - **Performance Benchmarks**
   - File loading: 15-30ms (800MB/s+ throughput)
-  - Metadata extraction: 1-5ms 
+  - Metadata extraction: 1-5ms
   - Thumbnail extraction: 20-50ms (400KB/s+ throughput)
   - Image processing: 1000-2000ms (70-140MB/s throughput)
   - Memory efficiency: No leaks detected
 
 #### 🛠️ Developer Experience
+
 - **npm Scripts** for common operations
+
   - `npm run extract:thumbnails` - Batch thumbnail extraction
   - `npm run test:image-processing` - Image conversion tests
   - `npm run test:format-conversion` - Format validation tests
@@ -162,12 +180,14 @@ This release represents a complete, production-ready implementation of the LibRa
 ### 🔧 Changed
 
 #### Enhanced API Interface
+
 - **Improved error handling** across all methods
 - **Consistent Promise-based API** for all operations
 - **Better memory management** with automatic cleanup
 - **Enhanced parameter validation** for all inputs
 
 #### Performance Optimizations
+
 - **Optimized memory usage** for large files
 - **Faster metadata extraction** (sub-5ms)
 - **Efficient thumbnail processing** pipeline
@@ -176,12 +196,14 @@ This release represents a complete, production-ready implementation of the LibRa
 ### 🐛 Fixed
 
 #### Stability Improvements
+
 - **Memory leak prevention** in all processing paths
 - **Error handling** for corrupted files
 - **Resource cleanup** in error conditions
 - **Thread safety** improvements
 
 #### Compatibility Fixes
+
 - **Windows platform** optimization and testing
 - **Large file handling** (>100MB RAW files)
 - **Multiple format support** validation
@@ -190,6 +212,7 @@ This release represents a complete, production-ready implementation of the LibRa
 ### 📋 Testing Results
 
 #### Test Coverage Summary
+
 - **✅ 100% thumbnail extraction** success rate (21/21 files)
 - **✅ 95%+ image processing** success rate
 - **✅ 100% metadata extraction** across all formats
@@ -197,12 +220,13 @@ This release represents a complete, production-ready implementation of the LibRa
 - **✅ 6 camera brands** validated in production
 
 #### Performance Metrics
-| Operation | File Size | Time | Throughput | Success |
-|-----------|-----------|------|------------|---------|
-| File Loading | 25MB | 15-30ms | 800MB/s+ | 100% |
-| Metadata | Any | 1-5ms | - | 100% |
-| Thumbnails | Variable | 20-50ms | 400KB/s+ | 100% |
-| Processing | 6K×4K | 1-2s | 70-140MB/s | 95%+ |
+
+| Operation    | File Size | Time    | Throughput | Success |
+| ------------ | --------- | ------- | ---------- | ------- |
+| File Loading | 25MB      | 15-30ms | 800MB/s+   | 100%    |
+| Metadata     | Any       | 1-5ms   | -          | 100%    |
+| Thumbnails   | Variable  | 20-50ms | 400KB/s+   | 100%    |
+| Processing   | 6K×4K     | 1-2s    | 70-140MB/s | 95%+    |
 
 ### 🚀 Production Readiness
 
@@ -232,12 +256,14 @@ This release marks the transition from proof-of-concept to production-ready:
 ## [0.1.33] - 2025-08-22
 
 ### 🔧 Added
+
 - Initial LibRaw wrapper implementation
 - Basic metadata extraction
 - File loading capabilities
 - Memory management framework
 
 ### 🐛 Fixed
+
 - Build system configuration
 - Native module loading
 - Basic error handling
@@ -247,6 +273,7 @@ This release marks the transition from proof-of-concept to production-ready:
 ## [0.1.32] - 2025-08-21
 
 ### 🎉 Added
+
 - Project initialization
 - LibRaw library integration
 - Basic Node.js addon structure
@@ -261,13 +288,14 @@ This release marks the transition from proof-of-concept to production-ready:
 This is a major upgrade with significant new functionality:
 
 #### New Features Available
+
 ```javascript
 // Thumbnail extraction (new!)
 const hasThumb = await processor.thumbOK();
 if (hasThumb) {
   await processor.unpackThumbnail();
   const thumbData = await processor.createMemoryThumbnail();
-  await processor.writeThumbnail('thumb.jpg');
+  await processor.writeThumbnail("thumb.jpg");
 }
 
 // Advanced metadata (enhanced!)
@@ -280,15 +308,17 @@ const color = await processor.getColorInfo();
 ```
 
 #### Testing Capabilities
+
 ```bash
 # New comprehensive test suites
 npm run test:image-processing
-npm run test:format-conversion  
+npm run test:format-conversion
 npm run test:thumbnail-extraction
 npm run test:comprehensive
 ```
 
 #### No Breaking Changes
+
 All existing APIs remain compatible. New functionality is additive.
 
 ---
@@ -305,13 +335,16 @@ All existing APIs remain compatible. New functionality is additive.
 ## Performance Notes
 
 ### Optimization Recommendations
+
 - Use `createMemoryImage()` for in-memory processing
 - Call `close()` promptly to free resources
 - Process thumbnails before full images when possible
 - Use appropriate bit depth (8-bit vs 16-bit) for your needs
 
 ### Benchmarking
+
 Run the performance test suite to validate on your system:
+
 ```bash
 npm run test:performance
 ```
@@ -321,6 +354,7 @@ npm run test:performance
 ## Contributing
 
 ### Adding New Features
+
 1. Implement in C++ (`src/libraw_wrapper.cpp`)
 2. Add JavaScript wrapper (`lib/index.js`)
 3. Create tests in appropriate test suite
@@ -328,6 +362,7 @@ npm run test:performance
 5. Add to this changelog
 
 ### Testing Guidelines
+
 - All new features must have test coverage
 - Test with multiple camera brands
 - Validate memory usage
