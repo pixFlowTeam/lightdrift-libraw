@@ -100,3 +100,5 @@ output/*.jpg
 # Keep the directory but ignore large files
 !sample-images/.gitkeep
 !output/.gitkeep
+examples/performance-test/*
+test/*-output/*
