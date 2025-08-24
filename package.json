@@ -1,6 +1,6 @@
 {
   "name": "lightdrift-libraw",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-alpha.2",
   "description": "Node.js Native Addon for LibRaw - Process RAW image files with JavaScript",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -19,6 +19,7 @@
     "test:image-processing": "node test/image-processing.test.js",
     "test:format-conversion": "node test/format-conversion.test.js",
     "test:thumbnail-extraction": "node test/thumbnail-extraction.test.js",
+    "test:jpeg-conversion": "node test/jpeg-conversion.test.js",
     "test:legacy": "npm run test:basic && npm run test:formats && npm run test:performance",
     "test:basic": "node test/test.js",
     "test:formats": "node test/all-formats.test.js",
@@ -33,12 +34,14 @@
     "docs:generate": "node scripts/generate-docs.js",
     "upgrade:libraw": "node scripts/upgrade-libraw.js",
     "extract:thumbnails": "node scripts/extract-thumbnails.js",
+    "convert:jpeg": "node scripts/batch-jpeg-conversion.js",
     "version:check": "node -e \"console.log('Package:', require('./package.json').version); console.log('Node:', process.version);\"",
     "publish:check": "npm run test && npm run docs:generate",
     "publish:dry": "npm publish --dry-run"
   },
   "dependencies": {
-    "node-addon-api": "^7.0.0"
+    "node-addon-api": "^7.0.0",
+    "sharp": "^0.33.5"
   },
   "devDependencies": {
     "node-gyp": "^10.0.0"
@@ -82,7 +85,17 @@
     "fujifilm",
     "panasonic",
     "leica",
-    "adobe-dng"
+    "adobe-dng",
+    "jpeg",
+    "jpeg-conversion",
+    "image-conversion",
+    "batch-processing",
+    "sharp",
+    "mozjpeg",
+    "compression",
+    "optimization",
+    "resize",
+    "quality"
   ],
   "author": "Bao LE <bao.lq.it@gmail.com>",
   "license": "MIT",

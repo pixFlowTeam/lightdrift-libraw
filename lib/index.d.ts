@@ -157,6 +157,124 @@ declare module 'libraw' {
     data: Buffer;
   }
 
+  export interface LibRawJPEGOptions {
+    /** JPEG quality (1-100) */
+    quality?: number;
+    /** Target width (maintains aspect ratio if height not specified) */
+    width?: number;
+    /** Target height (maintains aspect ratio if width not specified) */
+    height?: number;
+    /** Use progressive JPEG */
+    progressive?: boolean;
+    /** Use mozjpeg encoder for better compression */
+    mozjpeg?: boolean;
+    /** Chroma subsampling ('4:4:4', '4:2:0') - Note: 4:2:2 maps to 4:4:4 */
+    chromaSubsampling?: '4:4:4' | '4:2:2' | '4:2:0';
+    /** Enable trellis quantisation */
+    trellisQuantisation?: boolean;
+    /** Optimize scan order */
+    optimizeScans?: boolean;
+    /** Overshoot deringing */
+    overshootDeringing?: boolean;
+    /** Optimize Huffman coding */
+    optimizeCoding?: boolean;
+    /** Output color space */
+    colorSpace?: 'srgb' | 'rec2020' | 'p3' | 'cmyk';
+    /** Enable fast mode for better performance */
+    fastMode?: boolean;
+    /** Encoding effort (1=fastest, 9=slowest) */
+    effort?: number;
+    /** Maximum concurrency for batch operations */
+    maxConcurrency?: number;
+  }
+
+  export interface LibRawOptimalSettings {
+    quality: number;
+    progressive: boolean;
+    mozjpeg: boolean;
+    chromaSubsampling: string;
+    effort: number;
+    reasoning: string;
+  }
+
+  export interface LibRawJPEGResult {
+    /** Conversion success status */
+    success: boolean;
+    /** Output file path */
+    outputPath: string;
+    /** Conversion metadata */
+    metadata: {
+      /** Original image dimensions */
+      originalDimensions: {
+        width: number;
+        height: number;
+      };
+      /** Output image dimensions */
+      outputDimensions: {
+        width: number;
+        height: number;
+      };
+      /** File size information */
+      fileSize: {
+        original: number;
+        compressed: number;
+        compressionRatio: string;
+      };
+      /** Processing performance */
+      processing: {
+        timeMs: string;
+        throughputMBps: string;
+      };
+      /** Applied JPEG options */
+      jpegOptions: object;
+    };
+  }
+
+  export interface LibRawBatchResult {
+    /** Successfully processed files */
+    successful: Array<{
+      input: string;
+      output: string;
+      result: LibRawJPEGResult;
+    }>;
+    /** Failed files */
+    failed: Array<{
+      input: string;
+      error: string;
+    }>;
+    /** Processing summary */
+    summary: {
+      total: number;
+      processed: number;
+      errors: number;
+      totalProcessingTime: number;
+      averageCompressionRatio: string;
+      totalOriginalSize: number;
+      totalCompressedSize: number;
+      averageProcessingTimePerFile: string;
+    };
+  }
+
+  export interface LibRawOptimalSettings {
+    /** Recommended JPEG settings */
+    recommended: LibRawJPEGOptions & {
+      reasoning: string[];
+    };
+    /** Image analysis results */
+    imageAnalysis: {
+      dimensions: {
+        width: number;
+        height: number;
+        area: number;
+      };
+      category: 'high-resolution' | 'medium-resolution' | 'low-resolution';
+      camera: {
+        make?: string;
+        model?: string;
+      };
+    };
+  }
+
   export class LibRaw {
     constructor();
 
@@ -297,6 +415,66 @@ declare module 'libraw' {
      * Get current error count
      */
     errorCount(): Promise<number>;
+
+    // ============== JPEG CONVERSION (NEW FEATURE) ==============
+    /**
+     * Convert RAW to JPEG with advanced options
+     * @param outputPath Output JPEG file path
+     * @param options JPEG conversion options
+     */
+    convertToJPEG(outputPath: string, options?: LibRawJPEGOptions): Promise<LibRawJPEGResult>;
+
+    /**
+     * Batch convert multiple RAW files to JPEG
+     * @param inputPaths Array of input RAW file paths
+     * @param outputDir Output directory for JPEG files
+     * @param options JPEG conversion options
+     */
+    batchConvertToJPEG(inputPaths: string[], outputDir: string, options?: LibRawJPEGOptions): Promise<LibRawBatchResult>;
+
+    /**
+     * Get optimal JPEG conversion settings based on image analysis
+     * @param analysisOptions Options for image analysis
+     */
+    getOptimalJPEGSettings(analysisOptions?: { usage?: 'web' | 'print' | 'archive' }): Promise<LibRawOptimalSettings>;
+
+    /**
+     * High-performance JPEG conversion with minimal processing for speed
+     * @param outputPath Output JPEG file path
+     * @param options Speed-optimized JPEG options
+     */
+    convertToJPEGFast(outputPath: string, options?: LibRawJPEGOptions): Promise<LibRawJPEGResult>;
+
+    /**
+     * Create multiple JPEG sizes from single RAW (thumbnail, web, full)
+     * @param baseOutputPath Base output path (without extension)
+     * @param options Multi-size options
+     */
+    convertToJPEGMultiSize(baseOutputPath: string, options?: {
+      sizes?: Array<{
+        name: string;
+        width?: number;
+        height?: number;
+        quality?: number;
+        progressive?: boolean;
+        mozjpeg?: boolean;
+        chromaSubsampling?: string;
+        effort?: number;
+      }>;
+    }): Promise<{
+      success: boolean;
+      sizes: Record<string, {
+        name: string;
+        outputPath: string;
+        dimensions: { width: number; height: number };
+        fileSize: number;
+        processingTime: number;
+        config: any;
+      }>;
+      originalDimensions: { width: number; height: number };
+      totalProcessingTime: number;
+      averageTimePerSize: string;
+    }>;
 
     // ============== STATIC METHODS ==============
     /**
