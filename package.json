@@ -1,6 +1,6 @@
 {
   "name": "lightdrift-libraw",
-  "version": "1.0.0-alpha.2",
+  "version": "1.0.0-alpha.3",
   "description": "Node.js Native Addon for LibRaw - Process RAW image files with JavaScript",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -14,6 +14,7 @@
     "test:static": "node test/index.js static",
     "test:errors": "node test/index.js errors",
     "test:buffers": "node test/index.js buffers",
+    "test:buffer-creation": "node test/run-buffer-tests.js",
     "test:config": "node test/index.js config",
     "test:comprehensive": "node test/comprehensive.test.js",
     "test:image-processing": "node test/image-processing.test.js",
