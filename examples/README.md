@@ -1,6 +1,6 @@
 # LibRaw Node.js Examples
 
-This directory contains comprehensive examples demonstrating the full capabilities of the LibRaw Node.js wrapper.
+This directory contains comprehensive examples demonstrating the full capabilities of the LibRaw Node.js wrapper, including both traditional file-based operations and modern buffer-based streaming operations.
 
 ## Examples Overview
 
@@ -71,6 +71,103 @@ node batch-example.js ./input-folder ./output-folder --formats tiff,thumbnail --
 - Performance metrics and throughput analysis
 - Camera and processing summaries
 
+### 🚀 **NEW**: Stream/Buffer Operations (`stream-buffer-example.js`)
+
+**Purpose**: Modern buffer-based API for web services and cloud applications
+
+```bash
+node stream-buffer-example.js sample.cr2 ./buffer-output
+```
+
+**Features**:
+
+- Create image buffers directly in memory (no file I/O)
+- Multiple format support: JPEG, PNG, WebP, AVIF, TIFF, PPM
+- Perfect for web APIs and cloud storage
+- Performance-optimized processing
+- Practical usage examples for HTTP responses, cloud uploads
+- Format efficiency comparison
+
+### 📸 **NEW**: Simple Buffer API (`simple-buffer-example.js`)
+
+**Purpose**: Quick start guide for the most common buffer operations
+
+```bash
+node simple-buffer-example.js sample.cr2
+```
+
+**Features**:
+
+- Web-optimized JPEG buffer creation
+- Thumbnail generation in memory
+- High-quality image buffers
+- Practical code examples for web development
+- Performance benefits demonstration
+
+### 🔄 **NEW**: API Comparison (`api-comparison-example.js`)
+
+**Purpose**: Side-by-side comparison of file-based vs buffer-based approaches
+
+```bash
+node api-comparison-example.js sample.cr2 ./comparison-output
+```
+
+**Features**:
+
+- Performance comparison between file and buffer APIs
+- Use case recommendations
+- Format efficiency analysis
+- Code examples for different scenarios
+- Best practices for each approach
+
+## Buffer/Stream API Highlights
+
+The new buffer-based API provides several advantages for modern applications:
+
+### 🌐 Web Service Integration
+
+```javascript
+// Express.js endpoint
+app.get("/convert/:id", async (req, res) => {
+  const processor = new LibRaw();
+  await processor.loadFile(`photos/${req.params.id}.raw`);
+  const result = await processor.createJPEGBuffer({ quality: 85, width: 1920 });
+  res.set("Content-Type", "image/jpeg");
+  res.send(result.buffer);
+});
+```
+
+### ☁️ Cloud Storage Upload
+
+```javascript
+// Upload directly to cloud storage
+const result = await processor.createJPEGBuffer({ quality: 90 });
+await bucket.file("processed.jpg").save(result.buffer, {
+  metadata: { contentType: "image/jpeg" },
+});
+```
+
+### 🔄 Multiple Format Generation
+
+```javascript
+// Create multiple formats in parallel
+const [jpeg, webp, avif] = await Promise.all([
+  processor.createJPEGBuffer({ quality: 85 }),
+  processor.createWebPBuffer({ quality: 80 }),
+  processor.createAVIFBuffer({ quality: 50 }),
+]);
+```
+
+### 🚀 Available Buffer Methods
+
+- `createJPEGBuffer(options)` - JPEG with quality, resizing, progressive options
+- `createPNGBuffer(options)` - Lossless PNG with compression control
+- `createWebPBuffer(options)` - Modern WebP format (smaller than JPEG)
+- `createAVIFBuffer(options)` - Next-gen AVIF format (smallest file size)
+- `createTIFFBuffer(options)` - High-quality TIFF with various compression options
+- `createPPMBuffer()` - Raw PPM format for further processing
+- `createThumbnailJPEGBuffer(options)` - Optimized thumbnail generation
+
 ## Quick Start
 
 1. **Install dependencies** (if not already done):
@@ -85,13 +182,19 @@ node batch-example.js ./input-folder ./output-folder --formats tiff,thumbnail --
    node examples/basic-example.js path/to/your/image.cr2
    ```
 
-3. **Try complete processing**:
+3. **Try buffer API (recommended for web apps)**:
 
    ```bash
-   node examples/complete-example.js path/to/your/image.cr2 ./output
+   node examples/simple-buffer-example.js path/to/your/image.cr2
    ```
 
-4. **Process multiple files**:
+4. **Compare APIs**:
+
+   ```bash
+   node examples/api-comparison-example.js path/to/your/image.cr2
+   ```
+
+5. **Process multiple files**:
    ```bash
    node examples/batch-example.js ./raw-photos ./processed-output
    ```
@@ -112,120 +215,135 @@ The examples work with all RAW formats supported by LibRaw, including:
 
 ## Example Outputs
 
-### Basic Metadata
+### Buffer API Example
 
-```
-📷 Camera: Canon EOS R5
-📐 Resolution: 8192×5464 (RAW: 8192×5464)
-🎯 ISO: 100
-🔍 Aperture: f/2.8
-⏱️ Shutter: 1/125s
-📏 Focal Length: 85mm
-```
+````
+📸 Simple Buffer API Example
+============================
+📁 Processing: sample.cr2
 
-### Complete Processing Pipeline
+🔄 Loading RAW file...
+⚙️ Processing image...
 
-```
-🎯 Complete RAW Processing Pipeline
-=====================================
-📁 Input: sample.cr2
-📂 Output Directory: ./output
+📸 Creating web-optimized JPEG buffer...
+✅ Web JPEG created: 1,234,567 bytes
+   Size: 1920x1280
+   Compression: 15.2:1
 
-📊 Library Information:
-   LibRaw Version: 0.21.4
-   Supported Cameras: 1181
-   Capabilities: 0x7F
+🔍 Creating thumbnail buffer...
+✅ Thumbnail created: 45,123 bytes
+   Size: 300x200
 
-🔄 Loading RAW Image...
-   ✅ Image loaded successfully
+🎨 Creating high-quality buffer...
+✅ High-quality JPEG created: 8,765,432 bytes
+   Size: 8192x5464
 
-📋 Extracting Metadata...
-   📷 Camera: Canon EOS R5
-   📐 Resolution: 8192×5464 (RAW: 8192×5464)
-   🎯 ISO: 100
-   🔍 Aperture: f/2.8
-   ⏱️ Shutter: 1/125s
-   📏 Focal Length: 85mm
-   📏 Margins: 96px×48px
-   🔍 Lens: Canon RF 85mm F2 Macro IS STM
-   🎨 Color Channels: 3
-   ⚫ Black Level: 2048
-   ⚪ White Level: 15000
+💡 Practical Usage Examples:
 
-🖼️ Processing Image...
-   ✅ RAW to image conversion
-   ✅ Maximum adjustment
-   ✅ Image processing completed
+1️⃣ Save buffer to file:
+```javascript
+fs.writeFileSync("output.jpg", webJpeg.buffer);
+````
 
-💾 Memory Operations...
-   📸 Memory Image: 8192×5464
-   📊 Format: Type 3, 3 colors, 16-bit
-   💽 Size: 268.4 MB
+2️⃣ Send via HTTP response:
 
-💾 File Outputs...
-   ✅ PPM: 268.4 MB -> ./output/sample.ppm
-   ✅ TIFF: 134.2 MB -> ./output/sample.tiff
-   ✅ Thumbnail: 12.3 KB -> ./output/sample_thumbnail.jpg
-
-⏱️ Performance Summary:
-   🕐 Total Processing Time: 3450ms
-   📊 Throughput: 15.2 MB/s
-   ⚠️ Final Error Count: 0
-
-🎉 Complete processing pipeline finished!
+```javascript
+app.get("/image", async (req, res) => {
+  const result = await processor.createJPEGBuffer({ quality: 85 });
+  res.set("Content-Type", "image/jpeg");
+  res.send(result.buffer);
+});
 ```
 
-### Batch Processing
+⚡ Performance Benefits:
+• No filesystem I/O - faster processing
+• Direct memory operations
+• Perfect for serverless/cloud functions
+• Reduced disk space usage
+• Better for concurrent processing
+
+✅ Complete! Your images are ready to use in memory.
 
 ```
-🚀 Starting batch processing: 12 files with concurrency 3
 
-📦 Processing batch 1/4 (3 files)
-  ✅ IMG_001.cr2
-     📷 Canon EOS R5 | 📐 8192×5464
-     🎯 ISO 100 | 🔍 f/2.8 | ⏱️ 1/125s
-     💾 TIFF: 134.2MB, Thumb: 12.3KB | ⏱️ 3450ms
+### Format Efficiency Comparison
 
-📊 Progress: 12/12 (100.0%) | ✅ 11 | ❌ 1
-
-🎉 Batch Processing Complete!
-===============================
-📊 Files: 11/12 successful (91.7%)
-⏱️ Total Time: 45.2s (avg: 3864ms per file)
-💽 Total Input: 312.4 MB
-📷 Cameras: Canon EOS R5, Nikon D850, Sony A7R IV
-🚀 Throughput: 6.9 MB/s
 ```
+
+# 🎨 Format Efficiency Comparison
+
+📊 Formats ranked by file size (smallest to largest):
+🏆 AVIF: 0.89 MB
+🥈 WebP: 1.23 MB
+🥉 JPEG: 1.85 MB
+📊 PNG: 12.4 MB
+📊 TIFF: 45.2 MB
+
+````
 
 ## Advanced Configuration
 
-### Processing Parameters
+### Buffer Creation Options
 
 ```javascript
-const outputParams = {
-  bright: 1.1, // Brightness adjustment (0.5-4.0)
-  gamma: [2.2, 4.5], // Gamma correction [gamma, toe_slope]
-  output_bps: 16, // Output bits per sample (8 or 16)
-  no_auto_bright: false, // Disable auto brightness
-  highlight: 1, // Highlight recovery mode (0-9)
-  output_color: 1, // Color space (0=raw, 1=sRGB, 2=Adobe, etc.)
-  user_mul: [1, 1, 1, 1], // Manual white balance multipliers
-};
-```
+// JPEG with resizing and quality control
+const jpegResult = await processor.createJPEGBuffer({
+    quality: 85,           // 1-100
+    width: 1920,          // Resize to width
+    progressive: true,     // Progressive loading
+    colorSpace: 'srgb'    // Color space
+});
 
-### Memory Management
+// WebP with lossless option
+const webpResult = await processor.createWebPBuffer({
+    quality: 80,           // 1-100
+    lossless: false,      // Lossy compression
+    effort: 4             // Encoding effort 0-6
+});
+
+// AVIF for maximum compression
+const avifResult = await processor.createAVIFBuffer({
+    quality: 50,          // Lower quality for smaller files
+    effort: 6             // Maximum effort for best compression
+});
+````
+
+### Performance Optimization
 
 ```javascript
-// Process large images efficiently
-const imageData = await processor.createMemoryImage();
-console.log(`Processing ${imageData.width}×${imageData.height} image`);
-console.log(
-  `Memory usage: ${(imageData.dataSize / 1024 / 1024).toFixed(1)} MB`
-);
+// Fast mode for real-time processing
+const fastResult = await processor.createJPEGBuffer({
+  quality: 80,
+  fastMode: true, // Optimize for speed over quality
+  effort: 1, // Minimum encoding effort
+});
 
-// Always cleanup
-await processor.close();
+// High-quality mode for archival
+const archiveResult = await processor.createTIFFBuffer({
+  compression: "lzw", // Lossless compression
+  pyramid: true, // Multi-resolution TIFF
+});
 ```
+
+## When to Use Which API
+
+### 📁 Use File-based API when:
+
+- Building traditional desktop applications
+- Need permanent file storage
+- Working with very large images (memory constraints)
+- Integrating with file-based workflows
+- Creating archives or backups
+
+### 🚀 Use Buffer-based API when:
+
+- Building web services and REST APIs
+- Uploading to cloud storage (AWS S3, Google Cloud, etc.)
+- Creating real-time image processing pipelines
+- Developing serverless/lambda functions
+- Streaming image data over networks
+- Building mobile app backends
+- Memory-to-memory processing workflows
 
 ## Troubleshooting
 
@@ -240,28 +358,37 @@ await processor.close();
 
    - Use batch processing with lower concurrency
    - Process files sequentially for very large RAW files
+   - Consider using file-based API for extremely large images
 
-3. **Unsupported format**:
-   - Check if your camera model is supported
-   - Verify the file is not corrupted
+3. **Buffer size errors**:
+
+   - Monitor memory usage when creating multiple large buffers
+   - Process images one at a time if memory is limited
+
+4. **Sharp installation issues**:
+   - Ensure Sharp is properly installed: `npm install sharp`
+   - May require native compilation on some systems
 
 ### Performance Tips
 
-1. **Batch Processing**:
+1. **Buffer Processing**:
 
-   - Use concurrency of 2-4 for optimal performance
-   - Monitor memory usage with very large files
+   - Reuse LibRaw instances when processing multiple images
+   - Use appropriate quality settings for your use case
+   - Consider image resizing to reduce buffer sizes
 
-2. **Output Formats**:
+2. **Format Selection**:
 
-   - TIFF provides good compression for 16-bit data
-   - PPM is fastest but largest file size
-   - Thumbnails are great for quick previews
+   - AVIF: Best compression, slower encoding
+   - WebP: Good compression, fast encoding
+   - JPEG: Universal compatibility, fast encoding
+   - PNG: Lossless, large file size
+   - TIFF: Professional workflows, various compression options
 
-3. **Processing Parameters**:
-   - 16-bit output preserves maximum quality
-   - Adjust brightness and gamma for your display
-   - Use highlight recovery for overexposed images
+3. **Memory Management**:
+   - Always call `processor.close()` when done
+   - Process large batches sequentially to avoid memory issues
+   - Monitor buffer sizes for cloud function limits
 
 ## Contributing
 
@@ -272,6 +399,7 @@ Feel free to add more examples or improve existing ones! Each example should:
 3. Demonstrate specific LibRaw features
 4. Include performance metrics
 5. Show proper resource cleanup
+6. Document both file and buffer approaches where applicable
 
 ## License
 

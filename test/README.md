@@ -28,16 +28,107 @@ The test suite includes comprehensive coverage of all LibRaw functionality:
    - Buffer size and content validation
    - Corner case handling
 
-4. **Configuration** (`configuration.test.js`)
+4. **Buffer Creation** (`buffer-creation.test.js`)
+
+   - JPEG buffer creation with quality options
+   - PNG buffer creation with compression levels
+   - WebP buffer creation (lossy and lossless)
+   - AVIF buffer creation (next-gen format)
+   - TIFF buffer creation with compression options
+   - PPM buffer creation (raw format)
+   - Thumbnail JPEG extraction
+   - Parallel format creation
+   - Performance benchmarking
+
+5. **Buffer Edge Cases** (`buffer-edge-cases.test.js`)
+
+   - Memory management under stress
+   - Extreme parameter validation
+   - Multiple processor instances
+   - Format validation and magic bytes
+   - Resource cleanup verification
+
+6. **Configuration** (`configuration.test.js`)
 
    - Output parameter setting/getting
    - Parameter validation and ranges
    - Real-world configuration scenarios
 
-5. **Comprehensive** (`comprehensive.test.js`)
+7. **Comprehensive** (`comprehensive.test.js`)
    - End-to-end processing pipeline
    - All API methods demonstration
    - Real file processing
+
+## Buffer Creation Tests
+
+### New Buffer API Testing
+
+The test suite includes comprehensive testing for the new buffer creation methods:
+
+#### **Quick Buffer Verification** (`quick-buffer-verification.js`)
+
+```bash
+node test/quick-buffer-verification.js
+```
+
+- Fast validation of all buffer creation methods
+- Basic functionality check for JPEG, PNG, WebP, and Thumbnail creation
+- Output verification and file generation
+
+#### **Comprehensive Buffer Tests** (`buffer-creation.test.js`)
+
+```bash
+node test/buffer-creation.test.js
+```
+
+- Detailed testing of all 7 buffer creation methods
+- Quality, compression, and resize parameter validation
+- Performance benchmarking and parallel creation
+- Format-specific option testing (progressive JPEG, lossless WebP/AVIF, TIFF compression)
+
+#### **Edge Case Testing** (`buffer-edge-cases.test.js`)
+
+```bash
+node test/buffer-edge-cases.test.js
+```
+
+- Memory management stress testing
+- Extreme parameter validation
+- Multiple processor instances
+- Format magic byte validation
+- Resource cleanup verification
+
+#### **Integration Testing** (`buffer-integration.test.js`)
+
+```bash
+npm test  # Includes integration tests
+```
+
+- Mocha/Chai framework integration
+- Proper error handling validation
+- Multiple format consistency checks
+- Parameter boundary testing
+
+### Buffer Test Runner
+
+**Unified Test Runner** (`run-buffer-tests.js`)
+
+```bash
+# Run all buffer tests
+node test/run-buffer-tests.js
+
+# Quick verification only
+node test/run-buffer-tests.js --quick-only
+
+# Comprehensive tests only
+node test/run-buffer-tests.js --comprehensive-only
+
+# Edge cases only
+node test/run-buffer-tests.js --edge-only
+
+# Force continue on failures
+node test/run-buffer-tests.js --force
+```
 
 ## Quick Start
 
@@ -60,6 +151,7 @@ npm run test:all
 npm run test:static
 npm run test:errors
 npm run test:buffers
+npm run test:buffer-creation  # New buffer creation methods
 npm run test:config
 
 # Legacy comprehensive test
