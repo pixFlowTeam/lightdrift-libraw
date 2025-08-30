@@ -197,6 +197,103 @@ declare module 'libraw' {
     reasoning: string;
   }
 
+  export interface LibRawBufferResult {
+    /** Buffer creation success status */
+    success: boolean;
+    /** Raw binary data buffer */
+    buffer: Buffer;
+    /** Buffer metadata */
+    metadata: {
+      /** Original image dimensions */
+      originalDimensions?: {
+        width: number;
+        height: number;
+      };
+      /** Output image dimensions */
+      outputDimensions?: {
+        width: number;
+        height: number;
+      };
+      /** Processed dimensions */
+      dimensions?: {
+        width: number;
+        height: number;
+      };
+      /** File size information */
+      fileSize: {
+        original?: number;
+        compressed: number;
+        compressionRatio?: string;
+      };
+      /** Processing performance */
+      processing: {
+        timeMs: string;
+        throughputMBps?: string;
+        fromCache?: boolean;
+      };
+      /** Format-specific options */
+      jpegOptions?: object;
+      pngOptions?: object;
+      tiffOptions?: object;
+      webpOptions?: object;
+      avifOptions?: object;
+      /** Format type */
+      format?: string;
+    };
+  }
+
+  export interface LibRawImageConversionOptions {
+    /** Target width (maintains aspect ratio if height not specified) */
+    width?: number;
+    /** Target height (maintains aspect ratio if width not specified) */
+    height?: number;
+    /** Output color space */
+    colorSpace?: 'srgb' | 'rec2020' | 'p3' | 'cmyk';
+    /** Enable fast mode for better performance */
+    fastMode?: boolean;
+  }
+
+  export interface LibRawPNGOptions extends LibRawImageConversionOptions {
+    /** PNG compression level (0-9) */
+    compressionLevel?: number;
+    /** Use progressive PNG */
+    progressive?: boolean;
+  }
+
+  export interface LibRawTIFFOptions extends LibRawImageConversionOptions {
+    /** TIFF compression type */
+    compression?: 'none' | 'lzw' | 'jpeg' | 'zip';
+    /** JPEG quality when using JPEG compression */
+    quality?: number;
+    /** Create pyramidal TIFF */
+    pyramid?: boolean;
+  }
+
+  export interface LibRawWebPOptions extends LibRawImageConversionOptions {
+    /** WebP quality (1-100) */
+    quality?: number;
+    /** Use lossless WebP */
+    lossless?: boolean;
+    /** Encoding effort (0-6) */
+    effort?: number;
+  }
+
+  export interface LibRawAVIFOptions extends LibRawImageConversionOptions {
+    /** AVIF quality (1-100) */
+    quality?: number;
+    /** Use lossless AVIF */
+    lossless?: boolean;
+    /** Encoding effort (0-9) */
+    effort?: number;
+  }
+
+  export interface LibRawThumbnailJPEGOptions {
+    /** JPEG quality (1-100) */
+    quality?: number;
+    /** Maximum dimension size */
+    maxSize?: number;
+  }
+
   export interface LibRawJPEGResult {
     /** Conversion success status */
     success: boolean;
@@ -415,6 +512,48 @@ declare module 'libraw' {
      * Get current error count
      */
     errorCount(): Promise<number>;
+
+    // ============== MEMORY STREAM OPERATIONS (NEW FEATURE) ==============
+    /**
+     * Create processed image as JPEG buffer in memory
+     * @param options JPEG conversion options
+     */
+    createJPEGBuffer(options?: LibRawJPEGOptions): Promise<LibRawBufferResult>;
+
+    /**
+     * Create processed image as PNG buffer in memory
+     * @param options PNG conversion options
+     */
+    createPNGBuffer(options?: LibRawPNGOptions): Promise<LibRawBufferResult>;
+
+    /**
+     * Create processed image as TIFF buffer in memory
+     * @param options TIFF conversion options
+     */
+    createTIFFBuffer(options?: LibRawTIFFOptions): Promise<LibRawBufferResult>;
+
+    /**
+     * Create processed image as WebP buffer in memory
+     * @param options WebP conversion options
+     */
+    createWebPBuffer(options?: LibRawWebPOptions): Promise<LibRawBufferResult>;
+
+    /**
+     * Create processed image as AVIF buffer in memory
+     * @param options AVIF conversion options
+     */
+    createAVIFBuffer(options?: LibRawAVIFOptions): Promise<LibRawBufferResult>;
+
+    /**
+     * Create raw PPM buffer from processed image data
+     */
+    createPPMBuffer(): Promise<LibRawBufferResult>;
+
+    /**
+     * Create thumbnail as JPEG buffer in memory
+     * @param options JPEG options for thumbnail
+     */
+    createThumbnailJPEGBuffer(options?: LibRawThumbnailJPEGOptions): Promise<LibRawBufferResult>;
 
     // ============== JPEG CONVERSION (NEW FEATURE) ==============
     /**
