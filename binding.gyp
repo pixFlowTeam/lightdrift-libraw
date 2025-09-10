@@ -39,25 +39,27 @@
           ]
         }],
         ["OS=='mac'", {
-          "libraries": [
-            "<(module_root_dir)/deps/LibRaw-Source/LibRaw-0.21.4/build/darwin-x64/lib/libraw.a"
-          ],
           "conditions": [
             ["target_arch=='arm64'", {
               "libraries": [
                 "<(module_root_dir)/deps/LibRaw-Source/LibRaw-0.21.4/build/darwin-arm64/lib/libraw.a"
               ]
+            }, {
+              "libraries": [
+                "<(module_root_dir)/deps/LibRaw-Source/LibRaw-0.21.4/build/darwin-x64/lib/libraw.a"
+              ]
             }]
           ]
         }],
         ["OS=='linux'", {
-          "libraries": [
-            "<(module_root_dir)/deps/LibRaw-Source/LibRaw-0.21.4/build/linux-x64/lib/libraw.a"
-          ],
           "conditions": [
             ["target_arch=='arm64'", {
               "libraries": [
                 "<(module_root_dir)/deps/LibRaw-Source/LibRaw-0.21.4/build/linux-arm64/lib/libraw.a"
+              ]
+            }, {
+              "libraries": [
+                "<(module_root_dir)/deps/LibRaw-Source/LibRaw-0.21.4/build/linux-x64/lib/libraw.a"
               ]
             }]
           ]
