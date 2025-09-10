@@ -7,6 +7,13 @@
   "scripts": {
     "build": "node scripts/build-libraw.js && node-gyp rebuild",
     "build:libraw": "node scripts/build-libraw.js",
+    "cross-compile": "node scripts/cross-compile.js",
+    "cross-compile:all": "node scripts/cross-compile.js win32 && node scripts/cross-compile.js darwin x64 && node scripts/cross-compile.js darwin arm64 && node scripts/cross-compile.js linux x64 && node scripts/cross-compile.js linux arm64",
+    "cross-compile:win32": "node scripts/cross-compile.js win32",
+    "cross-compile:darwin-x64": "node scripts/cross-compile.js darwin x64",
+    "cross-compile:darwin-arm64": "node scripts/cross-compile.js darwin arm64",
+    "cross-compile:linux-x64": "node scripts/cross-compile.js linux x64",
+    "cross-compile:linux-arm64": "node scripts/cross-compile.js linux arm64",
     "rebuild": "npm run clean && npm run build",
     "test": "node test/index.js",
     "test:all": "node test/index.js full",

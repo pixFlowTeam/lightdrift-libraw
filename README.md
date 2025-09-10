@@ -86,6 +86,26 @@ Expected output: `LibRaw version: 0.21.4-Release`
 - **Xcode Command Line Tools** (macOS)
 - **build-essential** (Linux)
 
+### 🛠️ Cross-Compilation Support
+
+This project supports cross-compilation for multiple platforms. See [Cross-Compilation Guide](docs/CROSS_COMPILATION.md) for detailed toolchain requirements and setup instructions.
+
+**Supported Platforms:**
+- ✅ Windows x64
+- ✅ macOS x64 (Intel)
+- ✅ macOS ARM64 (Apple Silicon)
+- ✅ Linux x64
+- ✅ Linux ARM64
+
+**Quick Setup:**
+```bash
+# Install all cross-compilation toolchains
+brew install mingw-w64 aarch64-apple-darwin24-gcc-15 musl-cross
+
+# Build all platforms
+npm run cross-compile:all
+```
+
 ## Quick Start
 
 ```javascript
@@ -1111,6 +1131,13 @@ lightdrift-libraw/
 │   └── TESTING.md             # Comprehensive testing guide
 ├── deps/                       # Dependencies
 │   └── LibRaw-Source/         # LibRaw source code (cross-platform)
+│       └── LibRaw-0.21.4/
+│           └── build/         # Cross-compiled libraries
+│               ├── win32/     # Windows x64
+│               ├── darwin-x64/ # macOS Intel
+│               ├── darwin-arm64/ # macOS Apple Silicon
+│               ├── linux-x64/ # Linux x64
+│               └── linux-arm64/ # Linux ARM64
 ├── binding.gyp                # Build configuration
 ├── package.json               # Project configuration
 └── README.md                  # This file
