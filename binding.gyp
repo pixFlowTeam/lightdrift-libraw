@@ -9,7 +9,10 @@
       "include_dirs": [
         "<!@(node -p \"require('node-addon-api').include\")",
         "deps/LibRaw-Source/LibRaw-0.21.4/libraw",
-        "deps/LibRaw-Source/LibRaw-0.21.4"
+        "deps/LibRaw-Source/LibRaw-0.21.4",
+        "deps/LibRaw-Source/LibRaw-0.21.4/build/win32/include",
+        "deps/LibRaw-Source/LibRaw-0.21.4/build/darwin-x64/include",
+        "deps/LibRaw-Source/LibRaw-0.21.4/build/linux-x64/include"
       ],
       "defines": [
         "NAPI_DISABLE_CPP_EXCEPTIONS",
@@ -18,7 +21,7 @@
       "conditions": [
         ["OS=='win'", {
           "libraries": [
-            "<(module_root_dir)/deps/LibRaw-Source/LibRaw-0.21.4/lib/libraw.lib"
+            "<(module_root_dir)/deps/LibRaw-Source/LibRaw-0.21.4/build/win32/lib/libraw.a"
           ],
           "msvs_settings": {
             "VCCLCompilerTool": {
@@ -37,12 +40,26 @@
         }],
         ["OS=='mac'", {
           "libraries": [
-            "<(module_root_dir)/deps/LibRaw-Source/LibRaw-0.21.4/lib/libraw.a"
+            "<(module_root_dir)/deps/LibRaw-Source/LibRaw-0.21.4/build/darwin-x64/lib/libraw.a"
+          ],
+          "conditions": [
+            ["target_arch=='arm64'", {
+              "libraries": [
+                "<(module_root_dir)/deps/LibRaw-Source/LibRaw-0.21.4/build/darwin-arm64/lib/libraw.a"
+              ]
+            }]
           ]
         }],
         ["OS=='linux'", {
           "libraries": [
-            "<(module_root_dir)/deps/LibRaw-Source/LibRaw-0.21.4/lib/libraw.a"
+            "<(module_root_dir)/deps/LibRaw-Source/LibRaw-0.21.4/build/linux-x64/lib/libraw.a"
+          ],
+          "conditions": [
+            ["target_arch=='arm64'", {
+              "libraries": [
+                "<(module_root_dir)/deps/LibRaw-Source/LibRaw-0.21.4/build/linux-arm64/lib/libraw.a"
+              ]
+            }]
           ]
         }]
       ]

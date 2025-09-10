@@ -112,3 +112,6 @@ output/*.jpg
 !output/.gitkeep
 examples/performance-test/*
 test/*-output/*
+# LibRaw 更多中间构建文件和冗余库文件
+deps/LibRaw-Source/LibRaw-0.21.4/**/*.lai
+deps/LibRaw-Source/LibRaw-0.21.4/lib/
