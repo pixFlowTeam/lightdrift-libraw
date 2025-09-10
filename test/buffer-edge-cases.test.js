@@ -6,7 +6,7 @@ const path = require("path");
  * Edge cases and memory management tests for buffer methods
  */
 
-const sampleImagesDir = path.join(__dirname, "..", "sample-images");
+const sampleImagesDir = path.join(__dirname, "..", "raw-samples-repo");
 
 function findTestFile() {
   const rawExtensions = [

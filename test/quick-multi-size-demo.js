@@ -3,7 +3,7 @@ const path = require("path");
 const fs = require("fs");
 
 async function quickMultiSizeDemo() {
-  const sampleDir = path.join(__dirname, "..", "sample-images");
+  const sampleDir = path.join(__dirname, "..", "raw-samples-repo");
   const outputDir = path.join(__dirname, "output", "multi-size-demo");
 
   if (!fs.existsSync(outputDir)) {
@@ -12,7 +12,7 @@ async function quickMultiSizeDemo() {
 
   // Find a test file
   const testFiles = fs
-    .readdirSync(sampleDir)
+    .readdirSync(sampleDir, { withFileTypes: true })
     .filter((file) =>
       [".cr3", ".nef", ".arw"].includes(path.extname(file).toLowerCase())
     )

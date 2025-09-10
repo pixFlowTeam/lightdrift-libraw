@@ -6,17 +6,17 @@ async function testAllSamples() {
   console.log("LibRaw Node.js POC - Sample Images Test");
   console.log("=======================================\n");
 
-  const sampleDir = path.join(__dirname, "../sample-images");
+  const sampleDir = path.join(__dirname, "../raw-samples-repo");
 
   try {
     // Get all NEF files
     const files = fs
-      .readdirSync(sampleDir)
+      .readdirSync(sampleDir, { withFileTypes: true })
       .filter((file) => file.toLowerCase().endsWith(".nef"))
       .sort();
 
     if (files.length === 0) {
-      console.log("❌ No NEF files found in sample-images directory");
+      console.log("❌ No NEF files found in raw-samples-repo directory");
       return;
     }
 

@@ -35,13 +35,13 @@ class ThumbnailExtractionTests {
   }
 
   findTestFiles() {
-    const sampleDir = path.join(__dirname, "..", "sample-images");
+    const sampleDir = path.join(__dirname, "..", "raw-samples-repo");
     if (!fs.existsSync(sampleDir)) {
       this.log("Sample images directory not found", "warning");
       return [];
     }
 
-    const files = fs.readdirSync(sampleDir);
+    const files = fs.readdirSync(sampleDir, { withFileTypes: true });
     const rawExtensions = [
       ".cr2",
       ".cr3",
@@ -1761,9 +1761,9 @@ class ThumbnailExtractionTests {
     this.testFiles = this.findTestFiles();
 
     if (this.testFiles.length === 0) {
-      this.log("No RAW test files found in sample-images directory", "error");
+      this.log("No RAW test files found in raw-samples-repo directory", "error");
       this.log(
-        "Please add some RAW files (CR2, CR3, NEF, ARW, DNG, RAF, RW2) to sample-images/",
+        "Please add some RAW files (CR2, CR3, NEF, ARW, DNG, RAF, RW2) to raw-samples-repo/",
         "info"
       );
       return false;

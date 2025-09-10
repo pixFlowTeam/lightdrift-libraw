@@ -41,7 +41,7 @@ class MultiSizeJPEGTests {
   }
 
   findTestFiles() {
-    const sampleDir = path.join(__dirname, "..", "sample-images");
+    const sampleDir = path.join(__dirname, "..", "raw-samples-repo");
     if (!fs.existsSync(sampleDir)) {
       return [];
     }
@@ -56,7 +56,7 @@ class MultiSizeJPEGTests {
       ".rw2",
     ];
     const files = fs
-      .readdirSync(sampleDir)
+      .readdirSync(sampleDir, { withFileTypes: true })
       .filter((file) =>
         rawExtensions.includes(path.extname(file).toLowerCase())
       )
@@ -72,7 +72,7 @@ class MultiSizeJPEGTests {
     this.testFiles = this.findTestFiles();
 
     if (this.testFiles.length === 0) {
-      this.log("No RAW test files found in sample-images directory", "error");
+      this.log("No RAW test files found in raw-samples-repo directory", "error");
       return false;
     }
 

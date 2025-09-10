@@ -11,7 +11,7 @@ async function testBufferOperations() {
   console.log("=".repeat(40));
 
   // Find a sample image to test with
-  const sampleImagesDir = path.join(__dirname, "..", "sample-images");
+  const sampleImagesDir = path.join(__dirname, "..", "raw-samples-repo");
   if (!fs.existsSync(sampleImagesDir)) {
     console.log("\n❌ No sample images directory found");
     console.log("   Creating sample test data...");

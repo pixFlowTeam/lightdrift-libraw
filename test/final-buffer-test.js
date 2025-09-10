@@ -12,7 +12,7 @@ async function finalBufferTest() {
   console.log("=".repeat(45));
 
   const processor = new LibRaw();
-  const sampleImagesDir = path.join(__dirname, "..", "sample-images");
+  const sampleImagesDir = path.join(__dirname, "..", "raw-samples-repo");
   const outputDir = path.join(__dirname, "final-test-output");
 
   // Ensure output directory exists

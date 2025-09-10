@@ -6,12 +6,12 @@ async function performanceBenchmark() {
   console.log("⚡ LibRaw Node.js - Performance Benchmark");
   console.log("=========================================\n");
 
-  const sampleDir = path.join(__dirname, "../sample-images");
+  const sampleDir = path.join(__dirname, "../raw-samples-repo");
 
   try {
     // Get all RAW files
     const rawFiles = fs
-      .readdirSync(sampleDir)
+      .readdirSync(sampleDir, { withFileTypes: true })
       .filter((file) => {
         const ext = path.extname(file).toLowerCase();
         return [".nef", ".cr3", ".raf", ".dng", ".rw2", ".arw"].includes(ext);

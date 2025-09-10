@@ -12,7 +12,7 @@ async function demonstrateBufferMethods() {
   console.log("=".repeat(50));
 
   const processor = new LibRaw();
-  const sampleImagesDir = path.join(__dirname, "..", "sample-images");
+  const sampleImagesDir = path.join(__dirname, "..", "raw-samples-repo");
   const outputDir = path.join(__dirname, "demo-output");
 
   // Ensure output directory exists

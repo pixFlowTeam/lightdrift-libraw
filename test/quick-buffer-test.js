@@ -13,7 +13,7 @@ async function quickBufferTest() {
   console.log("========================\n");
 
   // Check for sample images
-  const sampleDir = "../sample-images";
+  const sampleDir = "../raw-samples-repo";
   const testFiles = [
     "D5600_0276.NEF",
     "012A0459.CR3",
@@ -34,7 +34,7 @@ async function quickBufferTest() {
   }
 
   if (!testFile) {
-    console.log("❌ No sample images found in ../sample-images/");
+    console.log("❌ No sample images found in ../raw-samples-repo/");
     console.log("Please place a RAW file there and try again.");
     return;
   }

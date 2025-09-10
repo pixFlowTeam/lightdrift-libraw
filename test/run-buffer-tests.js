@@ -31,7 +31,7 @@ function colorize(text, color) {
  * Check if test environment is ready
  */
 function checkTestEnvironment() {
-  const sampleImagesDir = path.join(__dirname, "..", "sample-images");
+  const sampleImagesDir = path.join(__dirname, "..", "raw-samples-repo");
 
   console.log(colorize("🔍 Checking test environment...", "cyan"));
 

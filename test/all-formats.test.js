@@ -7,7 +7,7 @@ async function testAllFormats() {
   console.log("🎯 LibRaw Node.js - Comprehensive Format Test");
   console.log("==============================================\n");
 
-  const sampleDir = path.join(__dirname, "../sample-images");
+  const sampleDir = path.join(__dirname, "../raw-samples-repo");
 
   // Define format groups with their expected characteristics
   const formatGroups = {
@@ -46,7 +46,7 @@ async function testAllFormats() {
   try {
     // Get all RAW files
     const allFiles = fs
-      .readdirSync(sampleDir)
+      .readdirSync(sampleDir, { withFileTypes: true })
       .filter((file) => {
         const ext = path.extname(file).toLowerCase();
         return Object.values(formatGroups).some((group) =>
@@ -56,7 +56,7 @@ async function testAllFormats() {
       .sort();
 
     if (allFiles.length === 0) {
-      console.log("❌ No supported RAW files found in sample-images directory");
+      console.log("❌ No supported RAW files found in raw-samples-repo directory");
       return;
     }
 

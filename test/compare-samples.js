@@ -6,7 +6,7 @@ async function compareImages() {
   console.log("LibRaw POC - Image Comparison Analysis");
   console.log("=====================================\n");
 
-  const sampleDir = path.join(__dirname, "../sample-images");
+  const sampleDir = path.join(__dirname, "../raw-samples-repo");
   const nefFiles = ["DSC_0006.NEF", "DSC_0007.NEF", "DSC_0008.NEF"];
 
   const results = [];

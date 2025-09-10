@@ -12,7 +12,7 @@ async function testLibRawFixed() {
     console.log('');
     
     // 测试 RAW 文件处理
-    const sampleFile = '../sample-images/DSCF4200.RAF'; // 使用真正的 RAW 文件
+    const sampleFile = '../raw-samples-repo/RW2/RAW_PANASONIC_G1.RW2'; // 使用真正的 RAW 文件
     if (fs.existsSync(sampleFile)) {
         console.log('🧪 测试 RAW 文件处理：');
         console.log('测试文件存在:', sampleFile);
@@ -33,7 +33,7 @@ async function testLibRawFixed() {
             console.log('焦距:', metadata.focal_len);
             
             console.log('3. 转换 JPEG...');
-            const result = await libraw.convertToJPEG(sampleFile, '../output/test-fixed.jpg', { quality: 85 });
+            const result = await libraw.convertToJPEG(sampleFile, '../output/test-rebuild-fixed.jpg', { quality: 85 });
             console.log('转换结果:', result.outputPath);
             console.log('文件大小:', result.metadata.fileSize.compressed, 'bytes');
             

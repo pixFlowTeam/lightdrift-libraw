@@ -10,7 +10,7 @@ const path = require("path");
 // Test configuration
 const TEST_CONFIG = {
   timeout: 30000, // 30 seconds per test
-  sampleImagesDir: path.join(__dirname, "..", "sample-images"),
+  sampleImagesDir: path.join(__dirname, "..", "raw-samples-repo"),
   outputDir: path.join(__dirname, "buffer-output"),
   minBufferSize: 1000, // Minimum expected buffer size in bytes
   maxTestFileSize: 50 * 1024 * 1024, // 50MB max test file

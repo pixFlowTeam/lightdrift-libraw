@@ -7,7 +7,7 @@ const path = require("path");
  * Run this for fast validation during development
  */
 
-const sampleImagesDir = path.join(__dirname, "..", "sample-images");
+const sampleImagesDir = path.join(__dirname, "..", "raw-samples-repo");
 const outputDir = path.join(__dirname, "quick-test-output");
 
 // Ensure output directory exists

@@ -36,13 +36,13 @@ class JPEGConversionTests {
   }
 
   findTestFiles() {
-    const sampleDir = path.join(__dirname, "..", "sample-images");
+    const sampleDir = path.join(__dirname, "..", "raw-samples-repo");
     if (!fs.existsSync(sampleDir)) {
       this.log("Sample images directory not found", "warning");
       return [];
     }
 
-    const files = fs.readdirSync(sampleDir);
+    const files = fs.readdirSync(sampleDir, { withFileTypes: true });
     const rawExtensions = [
       ".cr2",
       ".cr3",
@@ -649,7 +649,7 @@ class JPEGConversionTests {
       this.testFiles = this.findTestFiles();
       if (this.testFiles.length === 0) {
         this.log(
-          "No RAW test files found. Please add RAW files to sample-images directory.",
+          "No RAW test files found. Please add RAW files to raw-samples-repo directory.",
           "error"
         );
         return;

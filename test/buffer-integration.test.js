@@ -10,7 +10,7 @@ const path = require("path");
 describe("Buffer Creation Methods", function () {
   this.timeout(30000); // 30 seconds
 
-  const sampleImagesDir = path.join(__dirname, "..", "sample-images");
+  const sampleImagesDir = path.join(__dirname, "..", "raw-samples-repo");
   const outputDir = path.join(__dirname, "buffer-integration-output");
   let testFile;
 

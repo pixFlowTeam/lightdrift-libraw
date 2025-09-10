@@ -277,7 +277,7 @@ async function testWithRealFile() {
   console.log("\n📁 Real File Configuration Tests:");
 
   // Look for a real RAW file
-  const sampleImagesDir = path.join(__dirname, "..", "sample-images");
+  const sampleImagesDir = path.join(__dirname, "..", "raw-samples-repo");
   if (!fs.existsSync(sampleImagesDir)) {
     console.log("   ⚠️ No sample images directory found");
     return;

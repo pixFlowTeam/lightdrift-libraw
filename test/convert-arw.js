@@ -6,7 +6,7 @@ async function convertARW() {
     console.log('=== Sony ARW 文件转换测试 ===');
     console.log('');
     
-    const inputFile = '../sample-images/DSC02975.ARW';
+    const inputFile = '../raw-samples-repo/DSC02975.ARW';
     const outputFile = '../output/DSC02975_converted.jpg';
     
     // 检查输入文件
