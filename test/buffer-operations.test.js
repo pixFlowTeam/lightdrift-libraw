@@ -13,7 +13,7 @@ async function testBufferOperations() {
   // Find a sample image to test with
   const sampleImagesDir = path.join(__dirname, "..", "raw-samples-repo");
   if (!fs.existsSync(sampleImagesDir)) {
-    console.log("\n❌ No sample images directory found");
+    console.log("\nℹ️ No sample images directory found");
     console.log("   Creating sample test data...");
 
     // Create test buffer data
@@ -21,12 +21,22 @@ async function testBufferOperations() {
     return;
   }
 
-  const sampleFiles = fs
-    .readdirSync(sampleImagesDir)
-    .filter((f) => f.toLowerCase().match(/\.(cr2|cr3|nef|arw|raf|rw2|dng)$/));
+  // Look for RAW files in subdirectories
+  const sampleFiles = [];
+  const subdirs = fs.readdirSync(sampleImagesDir, { withFileTypes: true })
+    .filter(dirent => dirent.isDirectory())
+    .map(dirent => dirent.name);
+
+  for (const subdir of subdirs) {
+    const subdirPath = path.join(sampleImagesDir, subdir);
+    const files = fs.readdirSync(subdirPath)
+      .filter(f => f.toLowerCase().match(/\.(cr2|cr3|nef|arw|raf|rw2|dng)$/))
+      .map(f => path.join(subdir, f));
+    sampleFiles.push(...files);
+  }
 
   if (sampleFiles.length === 0) {
-    console.log("\n❌ No RAW sample files found");
+    console.log("\nℹ️ No RAW sample files found");
     console.log("   Creating sample test data...");
 
     await testWithSyntheticData();

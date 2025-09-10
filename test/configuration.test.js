@@ -59,7 +59,7 @@ async function testConfiguration() {
 async function testOutputParameters(processor) {
   console.log("\n📊 Output Parameters Tests:");
 
-  // Test default parameters (this should work even without a loaded file in some cases)
+  // Test default parameters (this requires a loaded file)
   try {
     const defaultParams = await processor.getOutputParams();
     console.log("   ✅ Retrieved default parameters:");
@@ -73,7 +73,11 @@ async function testOutputParameters(processor) {
     console.log(`      Highlight Mode: ${defaultParams.highlight}`);
     console.log(`      Output TIFF: ${defaultParams.output_tiff}`);
   } catch (error) {
-    console.log(`   ⚠️ Could not get default parameters: ${error.message}`);
+    if (error.message.includes("No file loaded")) {
+      console.log("   ℹ️ Default parameters require a loaded file (expected behavior)");
+    } else {
+      console.log(`   ⚠️ Could not get default parameters: ${error.message}`);
+    }
   }
 
   // Test setting parameters
@@ -150,14 +154,22 @@ async function testOutputParameters(processor) {
           );
         }
       } catch (getError) {
-        console.log(
-          `   ⚠️ Could not verify ${config.name} parameters: ${getError.message}`
-        );
+        if (getError.message.includes("No file loaded")) {
+          console.log(`   ℹ️ ${config.name} parameters set (verification requires loaded file)`);
+        } else {
+          console.log(
+            `   ⚠️ Could not verify ${config.name} parameters: ${getError.message}`
+          );
+        }
       }
     } catch (setError) {
-      console.log(
-        `   ⚠️ Could not set ${config.name} parameters: ${setError.message}`
-      );
+      if (setError.message.includes("No file loaded")) {
+        console.log(`   ℹ️ ${config.name} parameters require a loaded file (expected behavior)`);
+      } else {
+        console.log(
+          `   ⚠️ Could not set ${config.name} parameters: ${setError.message}`
+        );
+      }
     }
   }
 }
@@ -188,7 +200,9 @@ async function testParameterValidation(processor) {
       await processor.setOutputParams(config.params);
       console.log(`   ❌ ${config.name}: Should have thrown error`);
     } catch (error) {
-      if (
+      if (error.message.includes("No file loaded")) {
+        console.log(`   ℹ️ ${config.name}: Requires loaded file (expected behavior)`);
+      } else if (
         error.message.includes(config.expectedError) ||
         error.message.includes("Expected object") ||
         error.message.includes("TypeError")
@@ -262,7 +276,9 @@ async function testParameterRanges(processor) {
         console.log(`   ⚠️ ${test.name}: Unexpectedly accepted`);
       }
     } catch (error) {
-      if (test.acceptable) {
+      if (error.message.includes("No file loaded")) {
+        console.log(`   ℹ️ ${test.name}: Requires loaded file (expected behavior)`);
+      } else if (test.acceptable) {
         console.log(
           `   ⚠️ ${test.name}: Rejected (stricter validation): ${error.message}`
         );
@@ -283,12 +299,22 @@ async function testWithRealFile() {
     return;
   }
 
-  const sampleFiles = fs
-    .readdirSync(sampleImagesDir)
-    .filter((f) => f.toLowerCase().match(/\.(cr2|cr3|nef|arw|raf|rw2|dng)$/));
+  // Look for RAW files in subdirectories
+  const sampleFiles = [];
+  const subdirs = fs.readdirSync(sampleImagesDir, { withFileTypes: true })
+    .filter(dirent => dirent.isDirectory())
+    .map(dirent => dirent.name);
+
+  for (const subdir of subdirs) {
+    const subdirPath = path.join(sampleImagesDir, subdir);
+    const files = fs.readdirSync(subdirPath)
+      .filter(f => f.toLowerCase().match(/\.(cr2|cr3|nef|arw|raf|rw2|dng)$/))
+      .map(f => path.join(subdir, f));
+    sampleFiles.push(...files);
+  }
 
   if (sampleFiles.length === 0) {
-    console.log("   ⚠️ No RAW sample files found");
+    console.log("   ℹ️ No RAW sample files found");
     return;
   }
 

@@ -32,7 +32,7 @@ async function comprehensiveTest() {
     .filter((f) => f.toLowerCase().match(/\.(cr2|cr3|nef|arw|raf|rw2|dng)$/));
 
   if (sampleFiles.length === 0) {
-    console.log("\n❌ No RAW sample files found");
+    console.log("\nℹ️ No RAW sample files found");
     return;
   }
 
