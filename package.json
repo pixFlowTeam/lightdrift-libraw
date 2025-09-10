@@ -5,7 +5,8 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "build": "node-gyp rebuild",
+    "build": "node scripts/build-libraw.js && node-gyp rebuild",
+    "build:libraw": "node scripts/build-libraw.js",
     "rebuild": "npm run clean && npm run build",
     "test": "node test/index.js",
     "test:all": "node test/index.js full",
@@ -41,7 +42,7 @@
     "publish:dry": "npm publish --dry-run"
   },
   "dependencies": {
-    "node-addon-api": "^7.0.0",
+    "node-addon-api": "^7.1.1",
     "sharp": "^0.33.5"
   },
   "devDependencies": {

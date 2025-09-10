@@ -8,30 +8,43 @@
       ],
       "include_dirs": [
         "<!@(node -p \"require('node-addon-api').include\")",
-        "deps/LibRaw-Win64/LibRaw-0.21.4/libraw",
-        "deps/LibRaw-Win64/LibRaw-0.21.4"
-      ],
-      "libraries": [
-        "<(module_root_dir)/deps/LibRaw-Win64/LibRaw-0.21.4/lib/libraw.lib"
+        "deps/LibRaw-Source/LibRaw-0.21.4/libraw",
+        "deps/LibRaw-Source/LibRaw-0.21.4"
       ],
       "defines": [
-        "NAPI_DISABLE_CPP_EXCEPTIONS"
+        "NAPI_DISABLE_CPP_EXCEPTIONS",
+        "LIBRAW_NO_MEMPOOL_CHECK"
       ],
-      "cflags!": [ "-fno-exceptions" ],
-      "cflags_cc!": [ "-fno-exceptions" ],
-      "msvs_settings": {
-        "VCCLCompilerTool": {
-          "ExceptionHandling": 1,
-          "RuntimeLibrary": 2
-        }
-      },
-      "copies": [
-        {
-          "destination": "<(module_root_dir)/build/Release/",
-          "files": [
-            "<(module_root_dir)/deps/LibRaw-Win64/LibRaw-0.21.4/bin/libraw.dll"
+      "conditions": [
+        ["OS=='win'", {
+          "libraries": [
+            "<(module_root_dir)/deps/LibRaw-Source/LibRaw-0.21.4/lib/libraw.lib"
+          ],
+          "msvs_settings": {
+            "VCCLCompilerTool": {
+              "ExceptionHandling": 1,
+              "RuntimeLibrary": 2
+            }
+          },
+          "copies": [
+            {
+              "destination": "<(module_root_dir)/build/Release/",
+              "files": [
+                "<(module_root_dir)/deps/LibRaw-Source/LibRaw-0.21.4/bin/libraw.dll"
+              ]
+            }
           ]
-        }
+        }],
+        ["OS=='mac'", {
+          "libraries": [
+            "<(module_root_dir)/deps/LibRaw-Source/LibRaw-0.21.4/lib/libraw.a"
+          ]
+        }],
+        ["OS=='linux'", {
+          "libraries": [
+            "<(module_root_dir)/deps/LibRaw-Source/LibRaw-0.21.4/lib/libraw.a"
+          ]
+        }]
       ]
     }
   ]

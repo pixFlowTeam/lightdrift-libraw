@@ -15,9 +15,8 @@ npm run upgrade:libraw
 
 Visit: https://www.libraw.org/download
 
-Download these files:
-- `LibRaw-X.X.X-Win64.zip` (for Windows)
-- `LibRaw-X.X.X.tar.gz` (source code)
+Download this file:
+- `LibRaw-X.X.X.tar.gz` (source code for all platforms)
 
 #### 2. Backup Current Installation
 
@@ -28,24 +27,24 @@ cp -r deps deps-backup-$(date +%Y%m%d)
 
 #### 3. Replace Library Files
 
-**Windows:**
-```bash
-# Extract new LibRaw-X.X.X-Win64.zip
-# Replace deps/LibRaw-Win64/ with new files
-# Ensure these files are present:
-#   - LibRaw-Win64/bin/libraw.dll
-#   - LibRaw-Win64/lib/libraw.lib  
-#   - LibRaw-Win64/include/libraw/
-```
-
-**macOS/Linux:**
+**All Platforms:**
 ```bash
 # Extract and compile from source
 tar -xzf LibRaw-X.X.X.tar.gz
 cd LibRaw-X.X.X
-./configure --prefix=../deps/LibRaw-Unix
+
+# Configure for the project
+./configure --prefix=../deps/LibRaw-Source/LibRaw-X.X.X --enable-shared --disable-static
+
+# Compile
 make -j$(nproc)
+
+# Install
 make install
+
+# Build the native addon
+cd ..
+npm run build
 ```
 
 #### 4. Update Build Configuration
@@ -54,21 +53,27 @@ Check `binding.gyp` for version-specific changes:
 
 ```json
 {
-  "target_name": "libraw_wrapper",
-  "sources": ["src/libraw_wrapper.cpp"],
+  "target_name": "libraw_addon",
+  "sources": ["src/addon.cpp", "src/libraw_wrapper.cpp"],
   "include_dirs": [
     "<!(node -e \"console.log(require('node-addon-api').include)\")",
-    "deps/LibRaw-Win64/include"  # Update path if needed
+    "deps/LibRaw-Source/LibRaw-X.X.X/libraw"
   ],
-  "libraries": [
-    "../deps/LibRaw-Win64/lib/libraw.lib"  # Update path if needed
-  ],
-  "copies": [{
-    "destination": "build/Release/",
-    "files": [
-      "deps/LibRaw-Win64/bin/libraw.dll"  # Update path if needed
-    ]
-  }]
+  "conditions": [
+    ["OS=='win'", {
+      "libraries": ["<(module_root_dir)/deps/LibRaw-Source/LibRaw-X.X.X/lib/libraw.lib"],
+      "copies": [{
+        "destination": "<(module_root_dir)/build/Release/",
+        "files": ["<(module_root_dir)/deps/LibRaw-Source/LibRaw-X.X.X/bin/libraw.dll"]
+      }]
+    }],
+    ["OS=='mac'", {
+      "libraries": ["<(module_root_dir)/deps/LibRaw-Source/LibRaw-X.X.X/lib/libraw.dylib"]
+    }],
+    ["OS=='linux'", {
+      "libraries": ["<(module_root_dir)/deps/LibRaw-Source/LibRaw-X.X.X/lib/libraw.so"]
+    }]
+  ]
 }
 ```
 

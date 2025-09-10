@@ -1110,7 +1110,7 @@ lightdrift-libraw/
 ├── docs/                       # Documentation
 │   └── TESTING.md             # Comprehensive testing guide
 ├── deps/                       # Dependencies
-│   └── LibRaw-Win64/          # LibRaw binaries (Windows)
+│   └── LibRaw-Source/         # LibRaw source code (cross-platform)
 ├── binding.gyp                # Build configuration
 ├── package.json               # Project configuration
 └── README.md                  # This file
